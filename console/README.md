@@ -1,0 +1,2 @@
+# mcp-bastion-console
+
