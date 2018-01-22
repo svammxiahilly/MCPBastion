@@ -33,3 +33,21 @@ export function renderReport(agg: Aggregate): string {
   lines.push(`Bytes in/out   : ${agg.bytesIn} / ${agg.bytesOut}`);
   lines.push(`Redaction events: ${agg.redactionEvents}`);
   lines.push(`Unbalanced msgs : ${agg.unbalanced}`);
+  lines.push(`Max depth seen  : ${agg.maxDepthSeen}`);
+  if (agg.summaryMatches !== null) {
+    lines.push(`Gateway summary : ${agg.summaryMatches ? "MATCHES" : "MISMATCH!"}`);
+  }
+  lines.push("");
+
+  lines.push("Decisions");
+  lines.push("---------");
+  const decMax = Math.max(
+    agg.counts.forward,
+    agg.counts.deny,
+    agg.counts.drop,
+    agg.counts.error,
+    1,
+  );
+  for (const [name, count] of [
+    ["forward", agg.counts.forward],
+    ["deny", agg.counts.deny],
