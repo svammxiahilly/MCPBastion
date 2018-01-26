@@ -5,3 +5,11 @@
  * to text/JSON lives in `render.ts`.
  */
 
+import type { AuditEvent, Decision, ParseReport } from "./audit.js";
+
+export interface DecisionCounts {
+  forward: number;
+  deny: number;
+  drop: number;
+  error: number;
+}
