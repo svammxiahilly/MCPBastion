@@ -20,3 +20,11 @@ export interface ToolStat {
   readonly forwarded: number;
   readonly denied: number;
   readonly dropped: number;
+}
+
+export interface Aggregate {
+  readonly total: number;
+  readonly counts: DecisionCounts;
+  readonly bytesIn: number;
+  readonly bytesOut: number;
+  readonly redactionEvents: number;
