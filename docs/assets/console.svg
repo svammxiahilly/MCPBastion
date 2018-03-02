@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" role="img" aria-labelledby="ct cd" font-family="'Cascadia Code','Consolas','SF Mono',ui-monospace,monospace">
+  <title id="ct">MCP Bastion audit console: decision radar and live event terminal</title>
+  <desc id="cd">A dark control-room console. On the left a cyan radar sweeps across four decision rings (forward, deny, drop, error), pinging blips as audit events arrive. On the right a terminal streams one JSON audit line per message and a cross-language recount that confirms the gateway summary matches.</desc>
+
+  <defs>
