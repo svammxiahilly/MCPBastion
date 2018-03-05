@@ -3,3 +3,8 @@
   <desc id="cd">A dark control-room console. On the left a cyan radar sweeps across four decision rings (forward, deny, drop, error), pinging blips as audit events arrive. On the right a terminal streams one JSON audit line per message and a cross-language recount that confirms the gateway summary matches.</desc>
 
   <defs>
+    <linearGradient id="cbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#04081a"/>
+      <stop offset="1" stop-color="#0a1030"/>
+    </linearGradient>
+    <radialGradient id="scope" cx="0.5" cy="0.5" r="0.5">
