@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" role="img" aria-labelledby="gt gd" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+  <title id="gt">MCP Bastion: JSON-RPC transit through allow / deny / redact gates</title>
+  <desc id="gd">A neon zero-trust control room. Newline-delimited JSON-RPC lines enter from the client on the left, pass a size and shape check, then split at three lit gates: allowed calls are forwarded, denied calls are stopped, and permitted calls with credential arguments are redacted before leaving on the right.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#050a18"/>
+      <stop offset="1" stop-color="#0a1330"/>
+    </linearGradient>
+    <linearGradient id="cyanwire" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0af5ff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#0af5ff"/>
