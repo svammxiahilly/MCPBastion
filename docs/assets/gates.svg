@@ -22,3 +22,16 @@
     </radialGradient>
     <radialGradient id="redg" cx="0.5" cy="0.5" r="0.5">
       <stop offset="0" stop-color="#ffb020" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#ffb020" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="960" height="400" fill="url(#bg)"/>
+
+  <!-- faint grid -->
+  <g opacity="0.10">
+    <g stroke="#2de3ff">
