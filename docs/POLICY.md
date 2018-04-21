@@ -8,3 +8,8 @@ parser in [`console/src/policy.ts`](../console/src/policy.ts) mirrors it for
 display and linting.
 
 ## Syntax
+
+- One directive per line.
+- A directive is `key = value` **or** `key value` (the first `=` or run of
+  whitespace separates key from value).
+- Blank lines are ignored.
