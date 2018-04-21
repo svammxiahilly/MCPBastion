@@ -13,3 +13,8 @@ display and linting.
 - A directive is `key = value` **or** `key value` (the first `=` or run of
   whitespace separates key from value).
 - Blank lines are ignored.
+- `#` starts a comment and runs to end of line, **unless** it appears inside a
+  double-quoted value (so a `redaction_mask` may contain `#`).
+- Values may be optionally double-quoted; the quotes are stripped. This is the
+  only way to include leading/trailing spaces or a literal `#`.
+
