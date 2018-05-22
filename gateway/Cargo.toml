@@ -1,3 +1,5 @@
 [package]
 name = "mcp-bastion"
 version = "0.1.0"
+edition = "2021"
+description = "A local zero-trust MCP JSON-RPC gateway: policy-based allow/deny, argument redaction, rate/size limits, and audit logging."
