@@ -16,3 +16,21 @@
 //!   "method":       "tools/call",// extracted, or null
 //!   "tool":         "read_file", // extracted for tools/call, or null
 //!   "id":           "7",         // raw id span text, or null
+//!   "bytes_in":     128,
+//!   "bytes_out":    120,         // 0 when not forwarded
+//!   "redacted":     ["token"],   // redacted argument keys
+//!   "balanced":     true,        // structural balance of the input
+//!   "max_depth":    3
+//! }
+//! ```
+
+/// The decision recorded for a message.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Decision {
+    Forward,
+    Deny,
+    Drop,
+    Error,
+}
+
+impl Decision {
