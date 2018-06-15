@@ -34,3 +34,21 @@ pub enum Decision {
 }
 
 impl Decision {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Decision::Forward => "forward",
+            Decision::Deny => "deny",
+            Decision::Drop => "drop",
+            Decision::Error => "error",
+        }
+    }
+}
+
+/// A single audit event.
+#[derive(Debug, Clone)]
+pub struct AuditEvent {
+    pub ts_ms: u64,
+    pub seq: u64,
+    pub decision: Decision,
+    pub reason: String,
+    pub method: Option<String>,
