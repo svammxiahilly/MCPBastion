@@ -29,3 +29,34 @@ pub fn process_line(
     seq: u64,
     now_ms: u64,
 ) -> Processed {
+    let structure = json_scan::structure_report(line);
+    let method = json_scan::top_level_string(line, "method");
+    let id = id_text(line);
+
+    // Extract the tool name for tools/call requests (params.name).
+    let tool = extract_tool(line);
+
+    let mut ev = AuditEvent {
+        ts_ms: now_ms,
+        seq,
+        decision: Decision::Deny,
+        reason: String::new(),
+        method: method.clone(),
+        tool: tool.clone(),
+        id,
+        bytes_in: line.len(),
+        bytes_out: 0,
+        redacted: Vec::new(),
+        balanced: structure.balanced,
+        max_depth: structure.max_depth,
+    };
+
+    // 1. Size limit.
+    if line.len() > policy.max_bytes {
+        ev.decision = Decision::Drop;
+        ev.reason = format!(
+            "size limit exceeded ({} > max_bytes {})",
+            line.len(),
+            policy.max_bytes
+        );
+        return Processed {
