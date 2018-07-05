@@ -18,3 +18,23 @@
 //! Callers therefore get honest, conservative behaviour: if the scanner cannot
 //! confidently locate a value it returns `None` and the gateway treats the
 //! message accordingly (see `policy` and `main`). This keeps the security
+//! surface small and auditable — we never pretend to understand more of the
+//! message than we actually do.
+
+/// The kind of a scanned JSON value, as far as the scanner can tell from the
+/// first significant byte.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ValueKind {
+    String,
+    Object,
+    Array,
+    /// number, `true`, `false` or `null` — anything not covered above.
+    Scalar,
+}
+
+/// A located value: its kind and the byte range `[start, end)` in the source.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ValueSpan {
+    pub kind: ValueKind,
+    pub start: usize,
+    pub end: usize,
