@@ -22,3 +22,27 @@
 
 use std::collections::BTreeMap;
 use std::fs;
+use std::io::{self, BufRead, BufReader, Read, Write};
+use std::process::ExitCode;
+use std::time::Instant;
+
+use mcp_bastion::audit::Decision;
+use mcp_bastion::engine::{self};
+use mcp_bastion::policy::{Policy, RateLimiter};
+
+const USAGE: &str = "\
+mcp-bastion — a local zero-trust MCP JSON-RPC gateway
+
+USAGE:
+    mcp-bastion --policy <FILE> [--audit <FILE>] [--stats] [--epoch-ms <N>]
+    mcp-bastion --help | --version
+
+FLAGS:
+    --policy   <FILE>   Path to the policy file (required)
+    --audit    <FILE>   Write audit events to FILE (default: stderr)
+    --stats             Emit a summary object at EOF
+    --epoch-ms <N>      Fixed base timestamp in ms (deterministic mode)
+    --help              Show this help
+    --version           Show version
+
+Reads newline-delimited JSON-RPC from stdin; forwards allowed, redacted
