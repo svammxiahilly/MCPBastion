@@ -46,3 +46,27 @@ FLAGS:
     --version           Show version
 
 Reads newline-delimited JSON-RPC from stdin; forwards allowed, redacted
+messages to stdout; emits one JSON audit event per message to the audit sink.
+";
+
+struct Args {
+    policy_path: Option<String>,
+    audit_path: Option<String>,
+    stats: bool,
+    epoch_ms: Option<u64>,
+}
+
+fn parse_args() -> Result<Args, String> {
+    let mut a = Args {
+        policy_path: None,
+        audit_path: None,
+        stats: false,
+        epoch_ms: None,
+    };
+    let mut it = std::env::args().skip(1);
+    while let Some(arg) = it.next() {
+        match arg.as_str() {
+            "--help" | "-h" => {
+                print!("{USAGE}");
+                std::process::exit(0);
+            }
