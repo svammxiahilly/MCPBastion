@@ -70,3 +70,27 @@ fn parse_args() -> Result<Args, String> {
                 print!("{USAGE}");
                 std::process::exit(0);
             }
+            "--version" | "-V" => {
+                println!("mcp-bastion {}", env!("CARGO_PKG_VERSION"));
+                std::process::exit(0);
+            }
+            "--policy" => {
+                a.policy_path = Some(it.next().ok_or("--policy requires a value")?);
+            }
+            "--audit" => {
+                a.audit_path = Some(it.next().ok_or("--audit requires a value")?);
+            }
+            "--stats" => a.stats = true,
+            "--epoch-ms" => {
+                let v = it.next().ok_or("--epoch-ms requires a value")?;
+                a.epoch_ms = Some(
+                    v.parse::<u64>()
+                        .map_err(|_| "--epoch-ms must be an integer")?,
+                );
+            }
+            other => return Err(format!("unknown argument: {other}")),
+        }
+    }
+    Ok(a)
+}
+
