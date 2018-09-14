@@ -30,3 +30,35 @@ use std::collections::HashMap;
 #[derive(Debug, Clone)]
 pub struct Policy {
     pub default_allow: bool,
+    pub allow_tools: Vec<Pattern>,
+    pub deny_tools: Vec<Pattern>,
+    pub redact_args: Vec<Pattern>,
+    pub max_bytes: usize,
+    pub max_depth: usize,
+    pub rate_limit: u32,
+    pub rate_window_ms: u64,
+    pub redaction_mask: String,
+}
+
+impl Default for Policy {
+    fn default() -> Self {
+        Policy {
+            default_allow: false,
+            allow_tools: Vec::new(),
+            deny_tools: Vec::new(),
+            redact_args: Vec::new(),
+            max_bytes: 256 * 1024,
+            max_depth: 64,
+            rate_limit: 0, // 0 == unlimited
+            rate_window_ms: 1000,
+            redaction_mask: "«redacted»".to_string(),
+        }
+    }
+}
+
+/// A simple case-sensitive glob supporting `*` wildcards (any run of chars).
+#[derive(Debug, Clone)]
+pub struct Pattern {
+    raw: String,
+    /// Literal segments that must appear in order; `None` markers between them
+    /// represent `*`. `anchored_start`/`anchored_end` say whether the pattern
