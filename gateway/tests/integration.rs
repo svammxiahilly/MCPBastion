@@ -4,3 +4,9 @@
 //! pipeline the way `main` does, but without touching real I/O.
 
 use mcp_bastion::audit::Decision;
+use mcp_bastion::engine::process_line;
+use mcp_bastion::policy::{Policy, RateLimiter};
+
+fn policy() -> Policy {
+    Policy::parse(
+        "\
