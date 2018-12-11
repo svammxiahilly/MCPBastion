@@ -1,0 +1,3 @@
+# MCP Bastion — default zero-trust policy
+#
+# This policy denies everything by default and only permits an explicit,
