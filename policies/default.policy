@@ -1,3 +1,6 @@
 # MCP Bastion — default zero-trust policy
 #
 # This policy denies everything by default and only permits an explicit,
+# audited allow-list of read-only tools. See ../docs/POLICY.md for the full
+# directive reference.
+
