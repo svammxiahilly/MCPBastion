@@ -1,2 +1,3 @@
 # MCP Bastion — strict lockdown policy
 #
+# The tightest sample: a single allowed tool, aggressive redaction, small
