@@ -41,3 +41,25 @@ Two components, two languages, zero runtime deps:
 Every non-empty input line runs the same gauntlet, in this order. The first gate that fires decides the message; nothing downstream of it runs. This is the pipeline in `gateway/src/engine.rs::process_line`:
 
 1. **Size.** If the raw line is longer than `max_bytes`, it is **dropped** — before any parsing. A huge line never gets the chance to be interesting.
+2. **Shape.** If, after leading whitespace, the line does not begin with `{`, it is **dropped** as "not a JSON object".
+3. **Classify.** The top-level `method` is extracted. Only `tools/call` is tool-gated; every other method (`initialize`, `tools/list`, …) is governed solely by the `default` decision, so `default = deny` locks the checkpoint down to an audited allow-list of tool calls.
+4. **Name.** For a `tools/call`, `params.name` is extracted. A `tools/call` with no extractable string name is **denied** — reason `tools/call missing extractable params.name`.
+5. **Deny list.** If the name matches any `deny_tool` glob → **deny**. Deny always beats allow.
+6. **Allow list.** Else if it matches any `allow_tool` glob → continue. Else apply `default`.
+7. **Rate.** A would-be-forwarded message arriving while the rolling window is full is **dropped**. Only forwarded messages count against the window.
+8. **Redact & forward.** Matching argument values are spliced with the mask, and the message — every other byte intact — is written to `stdout`.
+
+Whatever the outcome, one audit event is emitted describing it.
+
+## Standing up the gateway
+
+Prerequisites: a Rust toolchain (`cargo`) and Node.js ≥ 18.
+
+```sh
+make build          # cargo build --release  +  npm install && npm run build
+make demo           # runs the whole gauntlet end-to-end and prints the report
+```
+
+`make demo` is the fastest way to see the checkpoint work; it is the exact command below, wired to the shipped sample session so the whole thing is self-contained and deterministic:
+
+```sh
