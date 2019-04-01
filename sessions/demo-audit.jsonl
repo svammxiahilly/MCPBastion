@@ -1,0 +1,1 @@
+{"ts_ms":0,"seq":1,"decision":"deny","reason":"default deny (non tools/call)","method":"initialize","tool":null,"id":"1","bytes_in":142,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":3}
