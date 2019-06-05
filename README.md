@@ -63,3 +63,25 @@ make demo           # runs the whole gauntlet end-to-end and prints the report
 `make demo` is the fastest way to see the checkpoint work; it is the exact command below, wired to the shipped sample session so the whole thing is self-contained and deterministic:
 
 ```sh
+cat sessions/demo-session.jsonl \
+  | gateway/target/release/mcp-bastion \
+      --policy policies/default.policy \
+      --audit sessions/demo-audit.jsonl \
+      --stats --epoch-ms 0 \
+  > sessions/demo-forwarded.jsonl
+```
+
+The flags, precisely:
+
+| Flag | Meaning |
+|------|---------|
+| `--policy <FILE>` | **Required.** The policy to enforce. |
+| `--audit <FILE>` | Write audit events here instead of `stderr`. |
+| `--stats` | Append a `{"summary":true,…}` line at EOF. |
+| `--epoch-ms <N>` | Pin the base timestamp for deterministic demos/tests. |
+| `--help` / `--version` | Print usage or version and exit. |
+
+### Placing it inline (the honest way)
+
+In real use the checkpoint belongs *in the pipe* between your client and your MCP server, framed as newline JSON both ways. Because the gateway is strictly a `stdin → stdout` relay, you compose it with the shell (or your client's launch config), not with a built-in "wrap this server" flag:
+
