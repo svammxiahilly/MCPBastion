@@ -16,3 +16,13 @@ client ──stdin──▶ mcp-bastion ──stdout──▶ server
   is trimmed).
 - Blank lines are skipped and never forwarded.
 - The gateway forwards each **permitted** message as a single line followed by
+  `\n`. Redacted messages are re-emitted with only the redacted value spans
+  replaced; all other bytes are preserved exactly.
+
+This matches the line-based framing used by common MCP stdio clients. The
+gateway does not implement the HTTP/SSE transport.
+
+## What the gateway understands about JSON — honestly
+
+The gateway does **not** contain a full JSON parser and does not claim to.
+Instead it uses a small, single-pass **field extractor**
