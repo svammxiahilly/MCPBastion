@@ -7,3 +7,13 @@
  * `JSON.parse` from the standard library — no third-party dependencies.
  */
 
+/** The decision recorded for a message. */
+export type Decision = "forward" | "deny" | "drop" | "error";
+
+const DECISIONS: readonly Decision[] = ["forward", "deny", "drop", "error"];
+
+/** A single audit event as produced by the gateway. */
+export interface AuditEvent {
+  readonly tsMs: number;
+  readonly seq: number;
+  readonly decision: Decision;
