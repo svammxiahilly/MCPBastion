@@ -8,3 +8,8 @@
       <stop offset="1" stop-color="#0a1030"/>
     </linearGradient>
     <radialGradient id="scope" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#08301f"/>
+      <stop offset="1" stop-color="#041022"/>
+    </radialGradient>
+    <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#12ffd6" stop-opacity="0"/>
