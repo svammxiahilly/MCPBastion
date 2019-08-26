@@ -47,3 +47,15 @@
   <text x="28" y="60" fill="#5fd6ff" font-size="11" letter-spacing="2">ZERO-TRUST JSON-RPC TRANSIT HUB · stdin ▸ stdout</text>
 
   <!-- client node -->
+  <g transform="translate(28,150)">
+    <rect width="118" height="100" rx="8" fill="#0b1a3a" stroke="#2de3ff" stroke-width="1.5"/>
+    <text x="59" y="30" text-anchor="middle" fill="#8fe9ff" font-size="12" font-weight="600">MCP CLIENT</text>
+    <text x="59" y="52" text-anchor="middle" fill="#4f9fd0" font-size="9">newline JSON-RPC</text>
+    <text x="59" y="72" text-anchor="middle" fill="#4f9fd0" font-size="9">on stdin</text>
+    <circle cx="59" cy="86" r="4" fill="#12ffd6"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- inspection column -->
+  <g transform="translate(190,130)">
+    <rect width="150" height="140" rx="10" fill="#081128" stroke="#ff2b4e" stroke-width="1.2" opacity="0.9"/>
+    <text x="75" y="26" text-anchor="middle" fill="#ff6b83" font-size="11" font-weight="700" letter-spacing="1">INSPECTION</text>
