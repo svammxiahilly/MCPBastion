@@ -27,3 +27,13 @@ export interface AuditEvent {
   readonly balanced: boolean;
   readonly maxDepth: number;
 }
+
+/** The optional summary line the gateway emits at EOF when `--stats` is set. */
+export interface SummaryLine {
+  readonly summary: true;
+  readonly total: number;
+  readonly forward: number;
+  readonly deny: number;
+  readonly drop: number;
+  readonly error: number;
+}
