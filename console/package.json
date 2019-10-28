@@ -4,3 +4,4 @@
   "description": "Dependency-free policy console and audit report viewer for MCP Bastion. Uses only the Node.js standard library.",
   "license": "MIT",
   "type": "module",
+  "bin": {
