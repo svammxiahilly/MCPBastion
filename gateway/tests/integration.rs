@@ -29,3 +29,9 @@ redaction_mask = \"[REDACTED]\"
 
 #[test]
 fn full_allow_flow_with_redaction() {
+    let p = policy();
+    let mut rl = RateLimiter::new(p.rate_limit, p.rate_window_ms);
+    let msg = br#"{"jsonrpc":"2.0","id":10,"method":"tools/call","params":{"name":"read_file","arguments":{"path":"/etc/hosts","password":"hunter2","note":"ok"}}}"#;
+    let out = process_line(msg, &p, &mut rl, 1, 0);
+    assert_eq!(out.event.decision, Decision::Forward);
+    let fwd = String::from_utf8(out.forward.unwrap()).unwrap();
