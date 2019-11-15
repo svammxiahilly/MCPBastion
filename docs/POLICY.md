@@ -23,3 +23,8 @@ display and linting.
 | Directive         | Value           | Default      | Meaning |
 |-------------------|-----------------|--------------|---------|
 | `default`         | `allow`\|`deny` | `deny`       | Decision when a tool matches no list, and the gate for non-`tools/call` methods. |
+| `allow_tool`      | glob            | (none)       | Permit a tool by name. May repeat. |
+| `deny_tool`       | glob            | (none)       | Forbid a tool by name. May repeat. **Deny beats allow.** |
+| `redact_arg`      | glob            | (none)       | Redact the value of matching argument keys in `tools/call`. May repeat. |
+| `max_bytes`       | integer         | `262144`     | Messages larger than this are dropped. |
+| `max_depth`       | integer         | `64`         | Advisory nesting depth; recorded in audit metadata (not enforced as a reject). |
