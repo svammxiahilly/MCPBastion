@@ -107,3 +107,24 @@ The six that never reach the server, and why:
 
 | id | tool / method | decision | reason |
 |----|---------------|----------|--------|
+| 1 | `initialize` | deny | default deny (non `tools/call`) |
+| 2 | `tools/list` | deny | default deny (non `tools/call`) |
+| 6 | `shell.exec` | deny | `deny_tool shell.*` |
+| 7 | `fs.delete` | deny | `deny_tool fs.delete` |
+| 8 | `format_disk` | deny | default deny (not on allow-list) |
+| 10 | *(missing name)* | deny | `tools/call missing extractable params.name` |
+
+Everything the gateway wrote to the audit sink for this run is captured verbatim in [`sessions/demo-audit.jsonl`](sessions/demo-audit.jsonl), and the forwarded stream in [`sessions/demo-forwarded.jsonl`](sessions/demo-forwarded.jsonl).
+
+## Policy routing
+
+A policy is a tiny, line-oriented file (`key = value` or `key value`; `#` comments; blank lines ignored). The [`default.policy`](policies/default.policy) posture reads like a checkpoint duty roster:
+
+```text
+default = deny
+
+allow_tool = read_file
+allow_tool = list_dir
+allow_tool = search_files
+allow_tool = get_metadata
+
