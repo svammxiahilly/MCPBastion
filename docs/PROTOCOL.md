@@ -26,3 +26,12 @@ gateway does not implement the HTTP/SSE transport.
 
 The gateway does **not** contain a full JSON parser and does not claim to.
 Instead it uses a small, single-pass **field extractor**
+([`gateway/src/json_scan.rs`](../gateway/src/json_scan.rs)) that understands
+exactly enough of the grammar to be safe:
+
+- It correctly **skips string literals**, including `\"`, `\\`, and `\uXXXX`
+  escapes, so structural characters inside strings (`{`, `}`, `,`, `:`) are
+  never mistaken for structure. This is the property that matters for a
+  security relay.
+- It tracks object/array **nesting depth** and can return the **raw byte span**
+  of the value following a matched key.
