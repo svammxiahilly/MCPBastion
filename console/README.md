@@ -6,3 +6,5 @@ The TypeScript component of [MCP Bastion](../README.md): a **dependency-free**
 The only `devDependencies` are `typescript` and `@types/node` — both used at
 build time to compile the sources. Nothing is required at runtime.
 
+## Build & test
+
