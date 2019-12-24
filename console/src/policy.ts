@@ -14,3 +14,20 @@ export interface ParsedPolicy {
   denyTools: string[];
   redactArgs: string[];
   maxBytes: number;
+  maxDepth: number;
+  rateLimit: number;
+  rateWindowMs: number;
+  redactionMask: string;
+}
+
+export interface PolicyIssue {
+  readonly line: number;
+  readonly severity: "error" | "warning";
+  readonly message: string;
+}
+
+export interface PolicyParseResult {
+  readonly policy: ParsedPolicy;
+  readonly issues: readonly PolicyIssue[];
+}
+
