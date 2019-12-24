@@ -28,3 +28,8 @@ display and linting.
 | `redact_arg`      | glob            | (none)       | Redact the value of matching argument keys in `tools/call`. May repeat. |
 | `max_bytes`       | integer         | `262144`     | Messages larger than this are dropped. |
 | `max_depth`       | integer         | `64`         | Advisory nesting depth; recorded in audit metadata (not enforced as a reject). |
+| `rate_limit`      | integer         | `0`          | Max forwarded messages per window. `0` = unlimited. |
+| `rate_window_ms`  | integer         | `1000`       | Rolling window length in milliseconds. |
+| `redaction_mask`  | string          | `«redacted»` | Replacement text spliced in place of redacted values. |
+
+## Globs
