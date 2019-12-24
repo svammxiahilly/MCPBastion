@@ -4,3 +4,7 @@
 # audited allow-list of read-only tools. See ../docs/POLICY.md for the full
 # directive reference.
 
+# Fallback decision when a tool matches neither list.
+default = deny
+
+# --- Allowed tools (read-only surface) --------------------------------------
