@@ -59,3 +59,16 @@
   <g transform="translate(190,130)">
     <rect width="150" height="140" rx="10" fill="#081128" stroke="#ff2b4e" stroke-width="1.2" opacity="0.9"/>
     <text x="75" y="26" text-anchor="middle" fill="#ff6b83" font-size="11" font-weight="700" letter-spacing="1">INSPECTION</text>
+    <line x1="16" y1="36" x2="134" y2="36" stroke="#233a63"/>
+    <text x="18" y="58" fill="#bfe7ff" font-size="10">size ≤ max_bytes</text>
+    <text x="18" y="78" fill="#bfe7ff" font-size="10">shape is {object}</text>
+    <text x="18" y="98" fill="#bfe7ff" font-size="10">extract method</text>
+    <text x="18" y="118" fill="#bfe7ff" font-size="10">extract params.name</text>
+    <text x="18" y="134" fill="#6f86b0" font-size="8.5">fail-closed field scan</text>
+  </g>
+
+  <!-- three gates -->
+  <g transform="translate(430,60)">
+    <!-- allow gate -->
+    <g transform="translate(0,10)">
+      <circle cx="60" cy="34" r="30" fill="url(#allowg)"/>
