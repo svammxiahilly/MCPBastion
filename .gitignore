@@ -4,3 +4,4 @@
 Cargo.lock
 
 # Node / TypeScript
+/console/node_modules/
