@@ -37,3 +37,13 @@ export interface SummaryLine {
   readonly drop: number;
   readonly error: number;
 }
+
+/** Discriminated result of parsing one line. */
+export type ParsedLine =
+  | { readonly kind: "event"; readonly event: AuditEvent }
+  | { readonly kind: "summary"; readonly summary: SummaryLine }
+  | { readonly kind: "error"; readonly line: number; readonly message: string };
+
+function isRecord(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null && !Array.isArray(v);
+}
