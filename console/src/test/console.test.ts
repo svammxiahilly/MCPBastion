@@ -9,3 +9,15 @@ import assert from "node:assert/strict";
 import { parseLine, parseAuditLog } from "../audit.js";
 import { aggregate, filterEvents } from "../report.js";
 import { parsePolicy, globMatch } from "../policy.js";
+import { renderReport, renderPolicy } from "../render.js";
+
+const SAMPLE = [
+  '{"ts_ms":4,"seq":1,"decision":"forward","reason":"allow_tool read_file","method":"tools/call","tool":"read_file","id":"1","bytes_in":110,"bytes_out":110,"redacted":[],"balanced":true,"max_depth":3}',
+  '{"ts_ms":4,"seq":2,"decision":"forward","reason":"allow_tool list_dir","method":"tools/call","tool":"list_dir","id":"2","bytes_in":141,"bytes_out":132,"redacted":["api_key"],"balanced":true,"max_depth":3}',
+  '{"ts_ms":4,"seq":3,"decision":"deny","reason":"deny_tool shell.*","method":"tools/call","tool":"shell.exec","id":"3","bytes_in":108,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":3}',
+  '{"summary":true,"total":3,"forward":2,"deny":1,"drop":0,"error":0}',
+].join("\n");
+
+test("parseLine parses a valid event", () => {
+  const r = parseLine(SAMPLE.split("\n")[0]!, 1);
+  assert.equal(r.kind, "event");
