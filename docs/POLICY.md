@@ -33,3 +33,8 @@ display and linting.
 | `redaction_mask`  | string          | `«redacted»` | Replacement text spliced in place of redacted values. |
 
 ## Globs
+
+Globs use `*` as a wildcard that matches any run of characters (including the
+empty string). Everything else is a literal. There is no `?` or character
+class. Matching is case-sensitive and must cover the **whole** string.
+
