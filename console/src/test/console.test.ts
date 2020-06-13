@@ -21,3 +21,14 @@ const SAMPLE = [
 test("parseLine parses a valid event", () => {
   const r = parseLine(SAMPLE.split("\n")[0]!, 1);
   assert.equal(r.kind, "event");
+  if (r.kind === "event") {
+    assert.equal(r.event.decision, "forward");
+    assert.equal(r.event.tool, "read_file");
+    assert.equal(r.event.bytesIn, 110);
+  }
+});
+
+test("parseLine parses the summary line", () => {
+  const r = parseLine('{"summary":true,"total":3,"forward":2,"deny":1,"drop":0,"error":0}', 1);
+  assert.equal(r.kind, "summary");
+  if (r.kind === "summary") assert.equal(r.summary.total, 3);
