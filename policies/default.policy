@@ -8,3 +8,6 @@
 default = deny
 
 # --- Allowed tools (read-only surface) --------------------------------------
+allow_tool = read_file
+allow_tool = list_dir
+allow_tool = search_files
