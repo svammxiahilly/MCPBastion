@@ -120,3 +120,23 @@ pub fn decode_string(bytes: &[u8], start: usize, end: usize) -> Option<String> {
                 let cp = read_hex4(inner, i + 1)?;
                 i += 4; // consumed the 4 hex digits (plus the `u` below)
                 if (0xD800..=0xDBFF).contains(&cp) {
+                    // High surrogate: expect a following `\uXXXX` low surrogate.
+                    if inner.get(i + 1) == Some(&b'\\') && inner.get(i + 2) == Some(&b'u') {
+                        let low = read_hex4(inner, i + 3)?;
+                        if (0xDC00..=0xDFFF).contains(&low) {
+                            let c = 0x10000 + ((cp - 0xD800) << 10) + (low - 0xDC00);
+                            out.push(char::from_u32(c)?);
+                            i += 6;
+                        } else {
+                            return None;
+                        }
+                    } else {
+                        return None;
+                    }
+                } else {
+                    out.push(char::from_u32(cp)?);
+                }
+            }
+            _ => return None,
+        }
+        i += 1;
