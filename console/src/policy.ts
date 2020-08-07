@@ -31,3 +31,20 @@ export interface PolicyParseResult {
   readonly issues: readonly PolicyIssue[];
 }
 
+const KNOWN_DIRECTIVES = new Set([
+  "default",
+  "allow_tool",
+  "deny_tool",
+  "redact_arg",
+  "max_bytes",
+  "max_depth",
+  "rate_limit",
+  "rate_window_ms",
+  "redaction_mask",
+]);
+
+function defaults(): ParsedPolicy {
+  return {
+    defaultAllow: false,
+    allowTools: [],
+    denyTools: [],
