@@ -140,3 +140,24 @@ pub fn decode_string(bytes: &[u8], start: usize, end: usize) -> Option<String> {
             _ => return None,
         }
         i += 1;
+    }
+    // The `as char` cast above only handles ASCII; re-decode as UTF-8 for the
+    // non-escaped bytes to preserve multibyte characters faithfully.
+    // To keep this simple and correct we redo decoding using a UTF-8 aware path
+    // when any non-ASCII byte was present.
+    if inner.iter().any(|&b| b >= 0x80) {
+        return decode_string_utf8(inner);
+    }
+    Some(out)
+}
+
+/// UTF-8 aware fallback decoder used when the raw bytes contain multibyte
+/// sequences. Escapes are handled identically to `decode_string`.
+fn decode_string_utf8(inner: &[u8]) -> Option<String> {
+    let mut out = String::with_capacity(inner.len());
+    let mut i = 0;
+    while i < inner.len() {
+        if inner[i] == b'\\' {
+            i += 1;
+            let esc = *inner.get(i)?;
+            match esc {
