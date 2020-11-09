@@ -6,3 +6,4 @@
   "type": "module",
   "bin": {
     "mcp-bastion-console": "dist/cli.js"
+  },
