@@ -8,3 +8,5 @@ build time to compile the sources. Nothing is required at runtime.
 
 ## Build & test
 
+```sh
+npm install       # installs the build-time devDependencies
