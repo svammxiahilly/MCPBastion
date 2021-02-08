@@ -15,3 +15,6 @@ allow_tool = get_metadata
 
 # --- Explicitly denied tools (deny always wins over allow) ------------------
 deny_tool  = shell.*
+deny_tool  = fs.delete
+deny_tool  = fs.write
+deny_tool  = net.*
