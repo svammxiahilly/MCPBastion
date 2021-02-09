@@ -5,3 +5,5 @@ edition = "2021"
 description = "A local zero-trust MCP JSON-RPC gateway: policy-based allow/deny, argument redaction, rate/size limits, and audit logging."
 license = "MIT"
 repository = "https://github.com/example/mcp-bastion"
+readme = "../README.md"
+keywords = ["mcp", "json-rpc", "gateway", "zero-trust", "security"]
