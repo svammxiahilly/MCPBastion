@@ -72,3 +72,15 @@
     <!-- allow gate -->
     <g transform="translate(0,10)">
       <circle cx="60" cy="34" r="30" fill="url(#allowg)"/>
+      <rect width="150" height="70" rx="10" x="0" y="0" fill="#06231c" stroke="#12ffd6" stroke-width="1.6"/>
+      <text x="75" y="30" text-anchor="middle" fill="#8dffe6" font-size="12" font-weight="700">ALLOW → FORWARD</text>
+      <text x="75" y="50" text-anchor="middle" fill="#4fc9ad" font-size="9">allow_tool match, deny loses</text>
+    </g>
+    <!-- redact gate -->
+    <g transform="translate(0,120)">
+      <circle cx="60" cy="34" r="30" fill="url(#redg)"/>
+      <rect width="150" height="70" rx="10" x="0" y="0" fill="#241a05" stroke="#ffb020" stroke-width="1.6"/>
+      <text x="75" y="30" text-anchor="middle" fill="#ffd579" font-size="12" font-weight="700">REDACT → FORWARD</text>
+      <text x="75" y="50" text-anchor="middle" fill="#c79a4a" font-size="9">value spans → «redacted»</text>
+    </g>
+    <!-- deny gate -->
