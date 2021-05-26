@@ -106,3 +106,21 @@ fn push_num(s: &mut String, key: &str, v: u64) {
 }
 
 fn push_bool(s: &mut String, key: &str, v: bool) {
+    push_key(s, key);
+    s.push_str(if v { "true" } else { "false" });
+}
+
+fn push_str(s: &mut String, key: &str, v: &str) {
+    push_key(s, key);
+    push_json_string(s, v);
+}
+
+fn push_opt_str(s: &mut String, key: &str, v: Option<&str>) {
+    push_key(s, key);
+    match v {
+        Some(x) => push_json_string(s, x),
+        None => s.push_str("null"),
+    }
+}
+
+fn push_str_array(s: &mut String, key: &str, items: &[String]) {
