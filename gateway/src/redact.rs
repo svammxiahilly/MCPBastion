@@ -53,3 +53,31 @@ pub fn json_encode_string(s: &str) -> String {
 pub fn redact_message(message: &[u8], policy: &Policy) -> RedactionResult {
     let no_change = || RedactionResult {
         bytes: message.to_vec(),
+        redacted_keys: Vec::new(),
+    };
+
+    if policy.redact_args.is_empty() {
+        return no_change();
+    }
+
+    // Locate params (object).
+    let params = match json_scan::top_level_span(message, "params") {
+        Some(s) if s.kind == ValueKind::Object => s,
+        _ => return no_change(),
+    };
+    // Locate params.arguments (object).
+    let args = match json_scan::find_key_in_object(message, params.start, "arguments") {
+        Some(s) if s.kind == ValueKind::Object => s,
+        _ => return no_change(),
+    };
+
+    // Collect the (key, value-span) members of the arguments object that match
+    // a redaction pattern. We gather ranges first, then splice from the end so
+    // earlier offsets remain valid.
+    let members = object_members(message, args.start);
+    let mask_literal = json_encode_string(&policy.redaction_mask);
+
+    let mut edits: Vec<(usize, usize)> = Vec::new(); // (value_start, value_end)
+    let mut redacted_keys: Vec<String> = Vec::new();
+    for m in &members {
+        if policy.should_redact(&m.key) {
