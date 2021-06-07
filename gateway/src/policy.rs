@@ -95,3 +95,35 @@ impl Pattern {
             // Pattern was "" or "*" or "***" -> matches everything.
             return true;
         }
+        let mut pos = 0usize;
+        for (idx, part) in self.parts.iter().enumerate() {
+            let is_first = idx == 0;
+            let is_last = idx == self.parts.len() - 1;
+            if is_first && self.anchored_start {
+                if !text[pos..].starts_with(part.as_str()) {
+                    return false;
+                }
+                pos += part.len();
+            } else {
+                match text[pos..].find(part.as_str()) {
+                    Some(rel) => pos += rel + part.len(),
+                    None => return false,
+                }
+            }
+            if is_last && self.anchored_end {
+                // The final literal must land exactly at the end.
+                return pos == text.len();
+            }
+        }
+        true
+    }
+}
+
+/// Errors that can occur while loading a policy file.
+#[derive(Debug)]
+pub enum PolicyError {
+    UnknownDirective {
+        line: usize,
+        key: String,
+    },
+    BadValue {
