@@ -2,3 +2,5 @@
 #
 # Allows everything except a small deny-list, with light redaction. Intended
 # for local development only; NOT recommended for untrusted MCP servers.
+
+default = allow
