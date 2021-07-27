@@ -7,3 +7,4 @@
   "bin": {
     "mcp-bastion-console": "dist/cli.js"
   },
+  "scripts": {
