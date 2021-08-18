@@ -38,3 +38,8 @@ Globs use `*` as a wildcard that matches any run of characters (including the
 empty string). Everything else is a literal. There is no `?` or character
 class. Matching is case-sensitive and must cover the **whole** string.
 
+Examples:
+
+| Pattern       | Matches                         | Does not match     |
+|---------------|----------------------------------|--------------------|
+| `read_file`   | `read_file`                      | `read_files`       |
