@@ -4,3 +4,5 @@
 # for local development only; NOT recommended for untrusted MCP servers.
 
 default = allow
+
+# Even in permissive mode, keep the truly dangerous verbs blocked.
