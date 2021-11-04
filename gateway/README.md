@@ -13,3 +13,6 @@ cargo clippy --all-targets -- -D warnings
 
 The release binary is `target/release/mcp-bastion`.
 
+## Usage
+
+```text
