@@ -57,3 +57,12 @@ function asNumber(o: Record<string, unknown>, key: string): number {
 }
 
 function asBool(o: Record<string, unknown>, key: string): boolean {
+  const v = o[key];
+  if (typeof v !== "boolean") {
+    throw new Error(`field '${key}' must be a boolean`);
+  }
+  return v;
+}
+
+function asString(o: Record<string, unknown>, key: string): string {
+  const v = o[key];
