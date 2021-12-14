@@ -41,3 +41,9 @@ fn full_allow_flow_with_redaction() {
     assert_eq!(out.event.id.as_deref(), Some("10"));
     assert_eq!(out.event.tool.as_deref(), Some("read_file"));
     assert_eq!(out.event.redacted, vec!["password".to_string()]);
+}
+
+#[test]
+fn deny_wildcard_tool() {
+    let p = policy();
+    let mut rl = RateLimiter::new(p.rate_limit, p.rate_window_ms);
