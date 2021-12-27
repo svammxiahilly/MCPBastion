@@ -16,3 +16,6 @@ The release binary is `target/release/mcp-bastion`.
 ## Usage
 
 ```text
+mcp-bastion --policy <FILE> [--audit <FILE>] [--stats] [--epoch-ms <N>]
+mcp-bastion --help | --version
+```
