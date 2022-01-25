@@ -181,3 +181,24 @@ fn decode_string_utf8(inner: &[u8]) -> Option<String> {
                                 i += 6;
                             } else {
                                 return None;
+                            }
+                        } else {
+                            return None;
+                        }
+                    } else {
+                        out.push(char::from_u32(cp)?);
+                    }
+                }
+                _ => return None,
+            }
+            i += 1;
+        } else {
+            // Decode one UTF-8 scalar.
+            let len = utf8_len(inner[i]);
+            if len == 0 || i + len > inner.len() {
+                return None;
+            }
+            let s = std::str::from_utf8(&inner[i..i + len]).ok()?;
+            out.push_str(s);
+            i += len;
+        }
