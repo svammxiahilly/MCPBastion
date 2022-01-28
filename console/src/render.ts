@@ -51,3 +51,21 @@ export function renderReport(agg: Aggregate): string {
   for (const [name, count] of [
     ["forward", agg.counts.forward],
     ["deny", agg.counts.deny],
+    ["drop", agg.counts.drop],
+    ["error", agg.counts.error],
+  ] as const) {
+    lines.push(`  ${pad(name, 8)} ${padLeft(String(count), 5)} ${bar(count, decMax)}`);
+  }
+  lines.push("");
+
+  if (agg.tools.length > 0) {
+    lines.push("Per-tool activity");
+    lines.push("-----------------");
+    lines.push(
+      `  ${pad("tool", 20)} ${padLeft("total", 6)} ${padLeft("fwd", 5)} ${padLeft("deny", 5)} ${padLeft("drop", 5)}`,
+    );
+    for (const t of agg.tools) {
+      lines.push(
+        `  ${pad(t.tool, 20)} ${padLeft(String(t.total), 6)} ${padLeft(String(t.forwarded), 5)} ${padLeft(String(t.denied), 5)} ${padLeft(String(t.dropped), 5)}`,
+      );
+    }
