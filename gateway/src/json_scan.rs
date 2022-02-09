@@ -202,3 +202,23 @@ fn decode_string_utf8(inner: &[u8]) -> Option<String> {
             out.push_str(s);
             i += len;
         }
+    }
+    Some(out)
+}
+
+fn utf8_len(b: u8) -> usize {
+    match b {
+        0x00..=0x7F => 1,
+        0xC0..=0xDF => 2,
+        0xE0..=0xEF => 3,
+        0xF0..=0xF7 => 4,
+        _ => 0,
+    }
+}
+
+fn read_hex4(bytes: &[u8], i: usize) -> Option<u32> {
+    let mut v = 0u32;
+    for k in 0..4 {
+        let c = *bytes.get(i + k)?;
+        let d = match c {
+            b'0'..=b'9' => (c - b'0') as u32,
