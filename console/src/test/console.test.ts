@@ -44,3 +44,15 @@ test("parseLine rejects wrong field type", () => {
   const r = parseLine('{"ts_ms":"x","seq":1,"decision":"forward","reason":"r","method":null,"tool":null,"id":null,"bytes_in":0,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":0}', 1);
   assert.equal(r.kind, "error");
 });
+
+test("parseLine rejects invalid decision", () => {
+  const r = parseLine('{"ts_ms":1,"seq":1,"decision":"nope","reason":"r","method":null,"tool":null,"id":null,"bytes_in":0,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":0}', 1);
+  assert.equal(r.kind, "error");
+});
+
+test("parseAuditLog collects events and summary", () => {
+  const rep = parseAuditLog(SAMPLE);
+  assert.equal(rep.events.length, 3);
+  assert.ok(rep.summary);
+  assert.equal(rep.errors.length, 0);
+});
