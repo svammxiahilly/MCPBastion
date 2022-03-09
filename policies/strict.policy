@@ -5,3 +5,4 @@
 
 default = deny
 
+allow_tool = read_file
