@@ -14,3 +14,5 @@ npm run build     # tsc -> dist/
 npm test          # node --test over compiled tests
 npm run typecheck # tsc --noEmit
 ```
+
+## Usage
