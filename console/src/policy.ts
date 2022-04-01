@@ -48,3 +48,20 @@ function defaults(): ParsedPolicy {
     defaultAllow: false,
     allowTools: [],
     denyTools: [],
+    redactArgs: [],
+    maxBytes: 262144,
+    maxDepth: 64,
+    rateLimit: 0,
+    rateWindowMs: 1000,
+    redactionMask: "«redacted»",
+  };
+}
+
+function stripComment(line: string): string {
+  let inQuote = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') inQuote = !inQuote;
+    else if (c === "#" && !inQuote) return line.slice(0, i);
+  }
+  return line;
