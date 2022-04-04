@@ -66,3 +66,13 @@ function asBool(o: Record<string, unknown>, key: string): boolean {
 
 function asString(o: Record<string, unknown>, key: string): string {
   const v = o[key];
+  if (typeof v !== "string") {
+    throw new Error(`field '${key}' must be a string`);
+  }
+  return v;
+}
+
+function asStringOrNull(o: Record<string, unknown>, key: string): string | null {
+  const v = o[key];
+  if (v === null) return null;
+  if (typeof v !== "string") {
