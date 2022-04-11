@@ -22,3 +22,6 @@ mcp-bastion --help | --version
 
 | Flag           | Meaning                                                     |
 |----------------|-------------------------------------------------------------|
+| `--policy`     | Path to a policy file (required). See [POLICY.md](../docs/POLICY.md). |
+| `--audit`      | Write audit events to a file instead of stderr.             |
+| `--stats`      | Append a summary object at EOF.                             |
