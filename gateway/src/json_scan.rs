@@ -222,3 +222,24 @@ fn read_hex4(bytes: &[u8], i: usize) -> Option<u32> {
         let c = *bytes.get(i + k)?;
         let d = match c {
             b'0'..=b'9' => (c - b'0') as u32,
+            b'a'..=b'f' => (c - b'a' + 10) as u32,
+            b'A'..=b'F' => (c - b'A' + 10) as u32,
+            _ => return None,
+        };
+        v = (v << 4) | d;
+    }
+    Some(v)
+}
+
+/// Given `i` pointing at the first byte of a JSON value, return the byte index
+/// just past the end of that value. Supports objects, arrays, strings and
+/// scalars. Returns `None` on malformed / truncated input.
+fn scan_value_end(bytes: &[u8], i: usize) -> Option<usize> {
+    let i = skip_ws(bytes, i);
+    match bytes.get(i)? {
+        b'"' => scan_string(bytes, i),
+        b'{' => scan_container(bytes, i, b'{', b'}'),
+        b'[' => scan_container(bytes, i, b'[', b']'),
+        _ => {
+            // Scalar: read until a structural terminator at the current level.
+            let mut j = i;
