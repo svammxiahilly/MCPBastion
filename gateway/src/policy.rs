@@ -127,3 +127,36 @@ pub enum PolicyError {
         key: String,
     },
     BadValue {
+        line: usize,
+        key: String,
+        value: String,
+    },
+}
+
+impl std::fmt::Display for PolicyError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            PolicyError::UnknownDirective { line, key } => {
+                write!(f, "line {line}: unknown directive '{key}'")
+            }
+            PolicyError::BadValue { line, key, value } => {
+                write!(f, "line {line}: invalid value '{value}' for '{key}'")
+            }
+        }
+    }
+}
+
+impl std::error::Error for PolicyError {}
+
+impl Policy {
+    /// Parse a policy from its textual representation.
+    pub fn parse(text: &str) -> Result<Policy, PolicyError> {
+        let mut p = Policy::default();
+        for (idx, raw_line) in text.lines().enumerate() {
+            let line_no = idx + 1;
+            let line = strip_comment(raw_line).trim();
+            if line.is_empty() {
+                continue;
+            }
+            let (key, value) = split_directive(line);
+            let key = key.trim();
