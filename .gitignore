@@ -7,3 +7,4 @@ Cargo.lock
 /console/node_modules/
 /console/dist/
 npm-debug.log*
+yarn-error.log*
