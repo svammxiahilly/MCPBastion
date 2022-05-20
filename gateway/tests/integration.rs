@@ -47,3 +47,10 @@ fn full_allow_flow_with_redaction() {
 fn deny_wildcard_tool() {
     let p = policy();
     let mut rl = RateLimiter::new(p.rate_limit, p.rate_window_ms);
+    let msg = br#"{"method":"tools/call","params":{"name":"shell.spawn","arguments":{}}}"#;
+    let out = process_line(msg, &p, &mut rl, 1, 0);
+    assert_eq!(out.event.decision, Decision::Deny);
+    assert!(out.forward.is_none());
+}
+
+#[test]
