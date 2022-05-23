@@ -60,3 +60,34 @@ pub fn process_line(
             policy.max_bytes
         );
         return Processed {
+            forward: None,
+            event: ev,
+        };
+    }
+
+    // 2. Structural sanity. We do not reject on imbalance (we are not a full
+    //    parser), but a message that is not even minimally object-shaped is
+    //    something we refuse to forward, because we cannot reason about it.
+    if !looks_like_object(line) {
+        ev.decision = Decision::Drop;
+        ev.reason = "input is not a JSON object".to_string();
+        return Processed {
+            forward: None,
+            event: ev,
+        };
+    }
+
+    // 3. Tool authorization (only for tools/call). Other methods are governed
+    //    by the default decision so an operator can lock the gateway down to
+    //    tools/call-only if desired.
+    let decision = match method.as_deref() {
+        Some("tools/call") => match &tool {
+            Some(name) => policy.decide_tool(name),
+            None => {
+                // A tools/call without an extractable name is suspicious.
+                ev.decision = Decision::Deny;
+                ev.reason = "tools/call missing extractable params.name".to_string();
+                return Processed {
+                    forward: None,
+                    event: ev,
+                };
