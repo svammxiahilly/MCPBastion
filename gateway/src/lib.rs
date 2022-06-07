@@ -3,3 +3,4 @@
 //! The binary in `main.rs` is a thin I/O shell around these modules:
 //!   * [`json_scan`] — the honest, single-pass JSON field extractor;
 //!   * [`policy`]    — the line-oriented policy format, matcher and rate limiter;
+//!   * [`redact`]    — argument-value redaction that preserves message bytes;
