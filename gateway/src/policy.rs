@@ -160,3 +160,35 @@ impl Policy {
             }
             let (key, value) = split_directive(line);
             let key = key.trim();
+            let value = value.trim();
+            match key {
+                "default" => match value {
+                    "allow" => p.default_allow = true,
+                    "deny" => p.default_allow = false,
+                    other => {
+                        return Err(PolicyError::BadValue {
+                            line: line_no,
+                            key: key.to_string(),
+                            value: other.to_string(),
+                        })
+                    }
+                },
+                "allow_tool" => p.allow_tools.push(Pattern::new(value)),
+                "deny_tool" => p.deny_tools.push(Pattern::new(value)),
+                "redact_arg" => p.redact_args.push(Pattern::new(value)),
+                "max_bytes" => p.max_bytes = parse_usize(value, key, line_no)?,
+                "max_depth" => p.max_depth = parse_usize(value, key, line_no)?,
+                "rate_limit" => p.rate_limit = parse_u32(value, key, line_no)?,
+                "rate_window_ms" => p.rate_window_ms = parse_u64(value, key, line_no)?,
+                "redaction_mask" => p.redaction_mask = unquote(value),
+                other => {
+                    return Err(PolicyError::UnknownDirective {
+                        line: line_no,
+                        key: other.to_string(),
+                    })
+                }
+            }
+        }
+        Ok(p)
+    }
+
