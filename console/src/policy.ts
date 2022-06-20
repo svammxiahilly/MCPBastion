@@ -65,3 +65,20 @@ function stripComment(line: string): string {
     else if (c === "#" && !inQuote) return line.slice(0, i);
   }
   return line;
+}
+
+function splitDirective(line: string): [string, string] {
+  const eq = line.indexOf("=");
+  if (eq >= 0) return [line.slice(0, eq).trim(), line.slice(eq + 1).trim()];
+  const sp = line.search(/\s/);
+  if (sp >= 0) return [line.slice(0, sp).trim(), line.slice(sp + 1).trim()];
+  return [line.trim(), ""];
+}
+
+function unquote(v: string): string {
+  const t = v.trim();
+  if (t.length >= 2 && t.startsWith('"') && t.endsWith('"')) {
+    return t.slice(1, -1);
+  }
+  return t;
+}
