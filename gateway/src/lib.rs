@@ -4,3 +4,4 @@
 //!   * [`json_scan`] — the honest, single-pass JSON field extractor;
 //!   * [`policy`]    — the line-oriented policy format, matcher and rate limiter;
 //!   * [`redact`]    — argument-value redaction that preserves message bytes;
+//!   * [`audit`]     — structured, one-line-per-event JSON audit records;
