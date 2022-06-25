@@ -91,3 +91,34 @@ pub fn process_line(
                     forward: None,
                     event: ev,
                 };
+            }
+        },
+        _ => {
+            // Non tool-call: apply default policy as a coarse gate.
+            if policy.default_allow {
+                crate::policy::ToolDecision::Allow {
+                    rule: "default allow (non tools/call)".into(),
+                }
+            } else {
+                crate::policy::ToolDecision::Deny {
+                    rule: "default deny (non tools/call)".into(),
+                }
+            }
+        }
+    };
+
+    if !decision.is_allow() {
+        ev.decision = Decision::Deny;
+        ev.reason = decision.rule().to_string();
+        return Processed {
+            forward: None,
+            event: ev,
+        };
+    }
+
+    // 4. Rate limit — only counts messages we would otherwise forward.
+    if !limiter.check(now_ms) {
+        ev.decision = Decision::Drop;
+        ev.reason = format!(
+            "rate limit exceeded ({} per {} ms)",
+            policy.rate_limit, policy.rate_window_ms
