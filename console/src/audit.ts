@@ -86,3 +86,13 @@ function asStringArray(o: Record<string, unknown>, key: string): string[] {
   if (!Array.isArray(v)) {
     throw new Error(`field '${key}' must be an array`);
   }
+  const out: string[] = [];
+  for (const item of v) {
+    if (typeof item !== "string") {
+      throw new Error(`field '${key}' must contain only strings`);
+    }
+    out.push(item);
+  }
+  return out;
+}
+
