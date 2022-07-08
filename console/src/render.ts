@@ -69,3 +69,21 @@ export function renderReport(agg: Aggregate): string {
         `  ${pad(t.tool, 20)} ${padLeft(String(t.total), 6)} ${padLeft(String(t.forwarded), 5)} ${padLeft(String(t.denied), 5)} ${padLeft(String(t.dropped), 5)}`,
       );
     }
+    lines.push("");
+  }
+
+  if (agg.redactedKeyCounts.size > 0) {
+    lines.push("Redacted argument keys");
+    lines.push("----------------------");
+    for (const [key, count] of sortedEntries(agg.redactedKeyCounts)) {
+      lines.push(`  ${pad(key, 24)} ${padLeft(String(count), 5)}`);
+    }
+    lines.push("");
+  }
+
+  lines.push("Top reasons");
+  lines.push("-----------");
+  for (const [reason, count] of sortedEntries(agg.reasonCounts).slice(0, 10)) {
+    lines.push(`  ${padLeft(String(count), 5)}  ${reason}`);
+  }
+
