@@ -36,3 +36,10 @@ export interface Aggregate {
   /** Consistency check against the gateway's own summary line, if present. */
   readonly summaryMatches: boolean | null;
 }
+
+function emptyCounts(): DecisionCounts {
+  return { forward: 0, deny: 0, drop: 0, error: 0 };
+}
+
+function bump(counts: DecisionCounts, d: Decision): void {
+  counts[d] += 1;
