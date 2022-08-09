@@ -122,3 +122,34 @@ pub fn process_line(
         ev.reason = format!(
             "rate limit exceeded ({} per {} ms)",
             policy.rate_limit, policy.rate_window_ms
+        );
+        return Processed {
+            forward: None,
+            event: ev,
+        };
+    }
+
+    // 5. Redaction.
+    let red = redact::redact_message(line, policy);
+    ev.redacted = red.redacted_keys;
+    ev.bytes_out = red.bytes.len();
+    ev.decision = Decision::Forward;
+    ev.reason = decision.rule().to_string();
+
+    Processed {
+        forward: Some(red.bytes),
+        event: ev,
+    }
+}
+
+/// A message must at minimum start (after whitespace) with `{` to be treated as
+/// a JSON-RPC object we can reason about.
+fn looks_like_object(bytes: &[u8]) -> bool {
+    let mut i = 0;
+    while i < bytes.len() {
+        match bytes[i] {
+            b' ' | b'\t' | b'\r' | b'\n' => i += 1,
+            b'{' => return true,
+            _ => return false,
+        }
+    }
