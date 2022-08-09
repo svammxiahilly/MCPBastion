@@ -10,3 +10,4 @@
     "declaration": true,
     "sourceMap": false,
     "strict": true,
+    "noImplicitAny": true,
