@@ -96,3 +96,13 @@ function asStringArray(o: Record<string, unknown>, key: string): string[] {
   return out;
 }
 
+function asDecision(o: Record<string, unknown>, key: string): Decision {
+  const v = asString(o, key);
+  if (!(DECISIONS as readonly string[]).includes(v)) {
+    throw new Error(`field '${key}' has invalid decision '${v}'`);
+  }
+  return v as Decision;
+}
+
+/** Parse a single trimmed line into an event, summary, or error record. */
+export function parseLine(raw: string, lineNo: number): ParsedLine {
