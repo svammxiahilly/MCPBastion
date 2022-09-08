@@ -40,3 +40,8 @@
 
     <!-- ring labels -->
     <text x="0" y="-118" text-anchor="middle" fill="#5fd6ff" font-size="9">forward</text>
+    <text x="0" y="-80" text-anchor="middle" fill="#ff8ea0" font-size="9">deny</text>
+    <text x="0" y="-42" text-anchor="middle" fill="#ffd579" font-size="9">drop</text>
+    <text x="0" y="14" text-anchor="middle" fill="#6f86b0" font-size="9">error</text>
+
+    <!-- rotating sweep -->
