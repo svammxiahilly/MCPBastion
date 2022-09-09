@@ -84,3 +84,16 @@
       <text x="75" y="50" text-anchor="middle" fill="#c79a4a" font-size="9">value spans → «redacted»</text>
     </g>
     <!-- deny gate -->
+    <g transform="translate(0,230)">
+      <circle cx="60" cy="34" r="30" fill="url(#denyg)"/>
+      <rect width="150" height="70" rx="10" x="0" y="0" fill="#2a0710" stroke="#ff2b4e" stroke-width="1.6"/>
+      <text x="75" y="30" text-anchor="middle" fill="#ff8ea0" font-size="12" font-weight="700">DENY / DROP ✕</text>
+      <text x="75" y="50" text-anchor="middle" fill="#c85e6d" font-size="9">deny_tool · default · limit</text>
+    </g>
+  </g>
+
+  <!-- server node -->
+  <g transform="translate(814,150)">
+    <rect width="118" height="100" rx="8" fill="#0b1a3a" stroke="#12ffd6" stroke-width="1.5"/>
+    <text x="59" y="30" text-anchor="middle" fill="#8dffe6" font-size="12" font-weight="600">MCP SERVER</text>
+    <text x="59" y="52" text-anchor="middle" fill="#4f9fd0" font-size="9">permitted +</text>
