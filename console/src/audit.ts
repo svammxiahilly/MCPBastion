@@ -106,3 +106,13 @@ function asDecision(o: Record<string, unknown>, key: string): Decision {
 
 /** Parse a single trimmed line into an event, summary, or error record. */
 export function parseLine(raw: string, lineNo: number): ParsedLine {
+  let value: unknown;
+  try {
+    value = JSON.parse(raw);
+  } catch (err) {
+    return {
+      kind: "error",
+      line: lineNo,
+      message: `invalid JSON: ${(err as Error).message}`,
+    };
+  }
