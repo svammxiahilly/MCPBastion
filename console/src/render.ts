@@ -87,3 +87,21 @@ export function renderReport(agg: Aggregate): string {
     lines.push(`  ${padLeft(String(count), 5)}  ${reason}`);
   }
 
+  return lines.join("\n");
+}
+
+/** Render a compact machine-readable JSON aggregate. */
+export function renderReportJson(agg: Aggregate): string {
+  const obj = {
+    total: agg.total,
+    counts: agg.counts,
+    bytesIn: agg.bytesIn,
+    bytesOut: agg.bytesOut,
+    redactionEvents: agg.redactionEvents,
+    unbalanced: agg.unbalanced,
+    maxDepthSeen: agg.maxDepthSeen,
+    summaryMatches: agg.summaryMatches,
+    redactedKeyCounts: Object.fromEntries(agg.redactedKeyCounts),
+    reasonCounts: Object.fromEntries(agg.reasonCounts),
+    tools: agg.tools,
+  };
