@@ -6,3 +6,4 @@
 //!   * [`redact`]    — argument-value redaction that preserves message bytes;
 //!   * [`audit`]     — structured, one-line-per-event JSON audit records;
 //!   * [`engine`]    — the pure per-message decision pipeline.
+//!
