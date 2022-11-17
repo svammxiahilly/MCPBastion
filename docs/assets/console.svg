@@ -45,3 +45,8 @@
     <text x="0" y="14" text-anchor="middle" fill="#6f86b0" font-size="9">error</text>
 
     <!-- rotating sweep -->
+    <g>
+      <path d="M0 0 L150 0 A150 150 0 0 1 106 106 Z" fill="url(#sweep)"/>
+      <line x1="0" y1="0" x2="150" y2="0" stroke="#12ffd6" stroke-width="2"/>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>
+    </g>
