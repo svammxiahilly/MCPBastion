@@ -21,3 +21,5 @@ npm run typecheck # tsc --noEmit
 node dist/cli.js report <audit.jsonl> [--json] [--decision D] [--tool S]
 node dist/cli.js tail   <audit.jsonl> [--decision D]
 node dist/cli.js policy <policy-file>
+```
+
