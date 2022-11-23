@@ -43,3 +43,8 @@ Examples:
 | Pattern       | Matches                         | Does not match     |
 |---------------|----------------------------------|--------------------|
 | `read_file`   | `read_file`                      | `read_files`       |
+| `shell.*`     | `shell.exec`, `shell.spawn`      | `shellx`           |
+| `*token*`     | `auth_token`, `token`, `x_token_y` | `tokn`           |
+| `*_secret`    | `db_secret`, `api_secret`        | `secret_key`       |
+
+## Decision order
