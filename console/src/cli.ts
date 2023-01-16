@@ -93,3 +93,22 @@ function cmdReport(flags: Flags): number {
   const path = flags.positional[0];
   if (path === undefined) fail("report requires an <audit.jsonl> path");
   const body = readFileOrFail(path);
+  const report = parseAuditLog(body);
+  const agg = aggregate(report);
+
+  if (flags.json) {
+    process.stdout.write(renderReportJson(agg) + "\n");
+  } else {
+    process.stdout.write(renderReport(agg) + "\n");
+    const filtered = filterEvents(report.events, buildFilter(flags));
+    if (flags.decision !== undefined || flags.tool !== undefined) {
+      process.stdout.write("\nFiltered events\n---------------\n");
+      for (const ev of filtered) {
+        process.stdout.write(
+          `  #${ev.seq} ${ev.decision} ${ev.tool ?? ev.method ?? "?"} — ${ev.reason}\n`,
+        );
+      }
+    }
+    if (report.errors.length > 0) {
+      process.stdout.write(`\nParse errors (${report.errors.length}):\n`);
+      for (const e of report.errors) {
