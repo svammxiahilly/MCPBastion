@@ -18,3 +18,10 @@ help: ## Show this help
 		awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
 
 build: gateway-build console-build ## Build both components
+
+test: gateway-test console-test ## Test both components
+
+lint: gateway-lint ## Lint the Rust gateway (clippy)
+
+fmt: ## Format the Rust sources
+	cd $(GATEWAY) && cargo fmt
