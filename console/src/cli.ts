@@ -112,3 +112,22 @@ function cmdReport(flags: Flags): number {
     if (report.errors.length > 0) {
       process.stdout.write(`\nParse errors (${report.errors.length}):\n`);
       for (const e of report.errors) {
+        process.stdout.write(`  line ${e.line}: ${e.message}\n`);
+      }
+    }
+  }
+  // Non-zero exit if the gateway summary disagrees with our recount.
+  return agg.summaryMatches === false ? 1 : 0;
+}
+
+function cmdTail(flags: Flags): number {
+  const path = flags.positional[0];
+  if (path === undefined) fail("tail requires an <audit.jsonl> path");
+  const body = readFileOrFail(path);
+  const report = parseAuditLog(body);
+  const events = filterEvents(report.events, buildFilter(flags));
+  for (const ev of events) {
+    const redaction = ev.redacted.length > 0 ? ` [redacted: ${ev.redacted.join(",")}]` : "";
+    process.stdout.write(
+      `#${ev.seq} ${ev.decision.toUpperCase().padEnd(7)} ${(ev.tool ?? ev.method ?? "-").padEnd(16)} ${ev.reason}${redaction}\n`,
+    );
