@@ -20,3 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `rate_limit` / `rate_window_ms`, and a configurable `redaction_mask`.
   - Sliding-window rate limiter.
   - Argument-value redaction (`redact`) that preserves surrounding bytes.
+  - Structured, one-line-per-event JSON audit records (`audit`).
+  - Pure decision pipeline (`engine`) covered by unit and integration tests.
+  - `--stats` summary line and deterministic `--epoch-ms` mode for demos.
+- **TypeScript console (`console/`)** — a dependency-free (Node standard
+  library only) viewer:
