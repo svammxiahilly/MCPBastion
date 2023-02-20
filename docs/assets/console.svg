@@ -50,3 +50,8 @@
       <line x1="0" y1="0" x2="150" y2="0" stroke="#12ffd6" stroke-width="2"/>
       <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>
     </g>
+
+    <!-- blips: forward (cyan) -->
+    <circle cx="70" cy="-90" r="4" fill="#12ffd6" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="0.4s" repeatCount="indefinite"/></circle>
+    <circle cx="-60" cy="-95" r="4" fill="#12ffd6" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="1.9s" repeatCount="indefinite"/></circle>
+    <circle cx="95" cy="55" r="4" fill="#12ffd6" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="3.1s" repeatCount="indefinite"/></circle>
