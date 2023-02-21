@@ -43,3 +43,11 @@ function emptyCounts(): DecisionCounts {
 
 function bump(counts: DecisionCounts, d: Decision): void {
   counts[d] += 1;
+}
+
+/** Compute the full aggregate from a parse report. */
+export function aggregate(report: ParseReport): Aggregate {
+  const counts = emptyCounts();
+  let bytesIn = 0;
+  let bytesOut = 0;
+  let redactionEvents = 0;
