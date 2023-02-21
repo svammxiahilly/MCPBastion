@@ -142,3 +142,21 @@ pub fn push_json_string(s: &mut String, v: &str) {
         match ch {
             '"' => s.push_str("\\\""),
             '\\' => s.push_str("\\\\"),
+            '\n' => s.push_str("\\n"),
+            '\r' => s.push_str("\\r"),
+            '\t' => s.push_str("\\t"),
+            '\u{0008}' => s.push_str("\\b"),
+            '\u{000C}' => s.push_str("\\f"),
+            c if (c as u32) < 0x20 => s.push_str(&format!("\\u{:04x}", c as u32)),
+            c => s.push(c),
+        }
+    }
+    s.push('"');
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn sample() -> AuditEvent {
+        AuditEvent {
