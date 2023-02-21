@@ -124,3 +124,21 @@ fn push_opt_str(s: &mut String, key: &str, v: Option<&str>) {
 }
 
 fn push_str_array(s: &mut String, key: &str, items: &[String]) {
+    push_key(s, key);
+    s.push('[');
+    for (i, it) in items.iter().enumerate() {
+        if i > 0 {
+            s.push(',');
+        }
+        push_json_string(s, it);
+    }
+    s.push(']');
+}
+
+/// Append a JSON-escaped string literal (with quotes).
+pub fn push_json_string(s: &mut String, v: &str) {
+    s.push('"');
+    for ch in v.chars() {
+        match ch {
+            '"' => s.push_str("\\\""),
+            '\\' => s.push_str("\\\\"),
