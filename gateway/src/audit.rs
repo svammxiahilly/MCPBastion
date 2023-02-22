@@ -160,3 +160,21 @@ mod tests {
 
     fn sample() -> AuditEvent {
         AuditEvent {
+            ts_ms: 12,
+            seq: 1,
+            decision: Decision::Forward,
+            reason: "allow_tool read_file".into(),
+            method: Some("tools/call".into()),
+            tool: Some("read_file".into()),
+            id: Some("7".into()),
+            bytes_in: 100,
+            bytes_out: 90,
+            redacted: vec!["token".into()],
+            balanced: true,
+            max_depth: 3,
+        }
+    }
+
+    #[test]
+    fn serialises_expected_fields() {
+        let j = sample().to_json();
