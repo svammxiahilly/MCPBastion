@@ -8,3 +8,5 @@ default = allow
 # Even in permissive mode, keep the truly dangerous verbs blocked.
 deny_tool = shell.*
 deny_tool = fs.delete
+deny_tool = process.kill
+
