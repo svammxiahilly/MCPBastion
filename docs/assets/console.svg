@@ -55,3 +55,9 @@
     <circle cx="70" cy="-90" r="4" fill="#12ffd6" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="0.4s" repeatCount="indefinite"/></circle>
     <circle cx="-60" cy="-95" r="4" fill="#12ffd6" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="1.9s" repeatCount="indefinite"/></circle>
     <circle cx="95" cy="55" r="4" fill="#12ffd6" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="3.1s" repeatCount="indefinite"/></circle>
+    <circle cx="-30" cy="100" r="4" fill="#12ffd6" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="2.4s" repeatCount="indefinite"/></circle>
+    <!-- deny (red) -->
+    <circle cx="-100" cy="30" r="4.5" fill="#ff2b4e" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="0.9s" repeatCount="indefinite"/></circle>
+    <circle cx="120" cy="-30" r="4.5" fill="#ff2b4e" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="2.7s" repeatCount="indefinite"/></circle>
+    <circle cx="40" cy="115" r="4.5" fill="#ff2b4e" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="1.4s" repeatCount="indefinite"/></circle>
+
