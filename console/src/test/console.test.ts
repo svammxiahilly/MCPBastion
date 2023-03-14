@@ -56,3 +56,14 @@ test("parseAuditLog collects events and summary", () => {
   assert.ok(rep.summary);
   assert.equal(rep.errors.length, 0);
 });
+
+test("aggregate computes decision counts and byte totals", () => {
+  const rep = parseAuditLog(SAMPLE);
+  const agg = aggregate(rep);
+  assert.equal(agg.total, 3);
+  assert.equal(agg.counts.forward, 2);
+  assert.equal(agg.counts.deny, 1);
+  assert.equal(agg.bytesIn, 110 + 141 + 108);
+  assert.equal(agg.redactionEvents, 1);
+  assert.equal(agg.redactedKeyCounts.get("api_key"), 1);
+  assert.equal(agg.summaryMatches, true);
