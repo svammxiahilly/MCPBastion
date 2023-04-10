@@ -81,3 +81,30 @@ pub fn redact_message(message: &[u8], policy: &Policy) -> RedactionResult {
     let mut redacted_keys: Vec<String> = Vec::new();
     for m in &members {
         if policy.should_redact(&m.key) {
+            edits.push((m.value_start, m.value_end));
+            redacted_keys.push(m.key.clone());
+        }
+    }
+
+    if edits.is_empty() {
+        return no_change();
+    }
+
+    // Splice from the end so indices stay valid.
+    let mut bytes = message.to_vec();
+    edits.sort_by_key(|a| std::cmp::Reverse(a.0));
+    for (start, end) in edits {
+        bytes.splice(start..end, mask_literal.bytes());
+    }
+
+    RedactionResult {
+        bytes,
+        redacted_keys,
+    }
+}
+
+struct Member {
+    key: String,
+    value_start: usize,
+    value_end: usize,
+}
