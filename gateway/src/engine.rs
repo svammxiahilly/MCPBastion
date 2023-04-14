@@ -216,3 +216,34 @@ redaction_mask = \"***\"
             &p,
             &mut rl,
             1,
+            0,
+        );
+        assert_eq!(out.event.decision, Decision::Forward);
+        assert!(out.forward.is_some());
+        assert_eq!(out.event.tool.as_deref(), Some("read_file"));
+    }
+
+    #[test]
+    fn denied_tool_is_blocked() {
+        let p = engine_policy();
+        let mut rl = RateLimiter::new(p.rate_limit, p.rate_window_ms);
+        let out = run(
+            r#"{"method":"tools/call","params":{"name":"shell.exec","arguments":{"cmd":"rm -rf /"}}}"#,
+            &p,
+            &mut rl,
+            1,
+            0,
+        );
+        assert_eq!(out.event.decision, Decision::Deny);
+        assert!(out.forward.is_none());
+        assert!(out.event.reason.contains("deny_tool"));
+    }
+
+    #[test]
+    fn unknown_tool_default_denied() {
+        let p = engine_policy();
+        let mut rl = RateLimiter::new(p.rate_limit, p.rate_window_ms);
+        let out = run(
+            r#"{"method":"tools/call","params":{"name":"format_disk","arguments":{}}}"#,
+            &p,
+            &mut rl,
