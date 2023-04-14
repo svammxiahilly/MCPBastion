@@ -108,3 +108,31 @@ struct Member {
     value_start: usize,
     value_end: usize,
 }
+
+/// Enumerate the immediate members of the object beginning at `obj_start`.
+fn object_members(bytes: &[u8], obj_start: usize) -> Vec<Member> {
+    let mut out = Vec::new();
+    let mut i = skip_ws(bytes, obj_start);
+    if bytes.get(i) != Some(&b'{') {
+        return out;
+    }
+    i = skip_ws(bytes, i + 1);
+    if bytes.get(i) == Some(&b'}') {
+        return out;
+    }
+    loop {
+        if bytes.get(i) != Some(&b'"') {
+            return out;
+        }
+        let key_end = match scan_string(bytes, i) {
+            Some(e) => e,
+            None => return out,
+        };
+        let key = match json_scan::decode_string(bytes, i, key_end) {
+            Some(k) => k,
+            None => return out,
+        };
+        let colon = skip_ws(bytes, key_end);
+        if bytes.get(colon) != Some(&b':') {
+            return out;
+        }
