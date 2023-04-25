@@ -1,3 +1,4 @@
 {"ts_ms":0,"seq":1,"decision":"deny","reason":"default deny (non tools/call)","method":"initialize","tool":null,"id":"1","bytes_in":142,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":3}
 {"ts_ms":0,"seq":2,"decision":"deny","reason":"default deny (non tools/call)","method":"tools/list","tool":null,"id":"2","bytes_in":46,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":1}
 {"ts_ms":0,"seq":3,"decision":"forward","reason":"allow_tool read_file","method":"tools/call","tool":"read_file","id":"3","bytes_in":110,"bytes_out":110,"redacted":[],"balanced":true,"max_depth":3}
+{"ts_ms":0,"seq":4,"decision":"forward","reason":"allow_tool list_dir","method":"tools/call","tool":"list_dir","id":"4","bytes_in":141,"bytes_out":132,"redacted":["api_key"],"balanced":true,"max_depth":3}
