@@ -97,3 +97,15 @@
     <rect width="118" height="100" rx="8" fill="#0b1a3a" stroke="#12ffd6" stroke-width="1.5"/>
     <text x="59" y="30" text-anchor="middle" fill="#8dffe6" font-size="12" font-weight="600">MCP SERVER</text>
     <text x="59" y="52" text-anchor="middle" fill="#4f9fd0" font-size="9">permitted +</text>
+    <text x="59" y="70" text-anchor="middle" fill="#4f9fd0" font-size="9">redacted on stdout</text>
+    <circle cx="59" cy="86" r="4" fill="#12ffd6"><animate attributeName="opacity" values="1;0.3;1" dur="1.6s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- wires client -> inspection -->
+  <path id="w0" d="M146 200 L190 200" stroke="url(#cyanwire)" stroke-width="2" fill="none"/>
+
+  <!-- wires inspection -> gates -->
+  <path id="wAllow" d="M340 200 C 390 200 400 108 430 104" stroke="#12ffd6" stroke-width="1.4" fill="none" opacity="0.5"/>
+  <path id="wRed"   d="M340 200 C 395 200 405 214 430 214" stroke="#ffb020" stroke-width="1.4" fill="none" opacity="0.5"/>
+  <path id="wDeny"  d="M340 200 C 390 200 400 300 430 324" stroke="#ff2b4e" stroke-width="1.4" fill="none" opacity="0.5"/>
+
