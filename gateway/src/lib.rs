@@ -7,3 +7,4 @@
 //!   * [`audit`]     — structured, one-line-per-event JSON audit records;
 //!   * [`engine`]    — the pure per-message decision pipeline.
 //!
+//! Everything here depends solely on the Rust standard library.
