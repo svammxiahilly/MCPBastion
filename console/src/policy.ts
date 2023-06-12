@@ -116,3 +116,20 @@ export function parsePolicy(text: string): PolicyParseResult {
         else if (value === "deny") policy.defaultAllow = false;
         else
           issues.push({
+            line: lineNo,
+            severity: "error",
+            message: `default must be 'allow' or 'deny', got '${value}'`,
+          });
+        break;
+      case "allow_tool":
+        policy.allowTools.push(value);
+        break;
+      case "deny_tool":
+        policy.denyTools.push(value);
+        break;
+      case "redact_arg":
+        policy.redactArgs.push(value);
+        break;
+      case "max_bytes": {
+        const n = parseIntStrict(value);
+        if (n === null)
