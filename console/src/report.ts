@@ -51,3 +51,11 @@ export function aggregate(report: ParseReport): Aggregate {
   let bytesIn = 0;
   let bytesOut = 0;
   let redactionEvents = 0;
+  let unbalanced = 0;
+  let maxDepthSeen = 0;
+
+  const redactedKeyCounts = new Map<string, number>();
+  const reasonCounts = new Map<string, number>();
+  const toolAgg = new Map<string, ToolStat & { mutable: true }>();
+
+  for (const ev of report.events) {
