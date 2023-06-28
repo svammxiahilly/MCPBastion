@@ -61,3 +61,8 @@
     <circle cx="120" cy="-30" r="4.5" fill="#ff2b4e" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="2.7s" repeatCount="indefinite"/></circle>
     <circle cx="40" cy="115" r="4.5" fill="#ff2b4e" filter="url(#cglow)"><animate attributeName="opacity" values="0;1;1;0.2" dur="4s" begin="1.4s" repeatCount="indefinite"/></circle>
 
+    <circle r="4" fill="#eaf6ff"/>
+  </g>
+  <text x="200" y="392" text-anchor="middle" fill="#4f9fd0" font-size="9">demo: 4 forward · 6 deny · 0 drop · 0 error</text>
+
+  <!-- ===== TERMINAL ===== -->
