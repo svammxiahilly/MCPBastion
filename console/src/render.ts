@@ -105,3 +105,21 @@ export function renderReportJson(agg: Aggregate): string {
     reasonCounts: Object.fromEntries(agg.reasonCounts),
     tools: agg.tools,
   };
+  return JSON.stringify(obj, null, 2);
+}
+
+/** Render a policy summary with any lint issues. */
+export function renderPolicy(policy: ParsedPolicy, issues: readonly PolicyIssue[]): string {
+  const lines: string[] = [];
+  lines.push("MCP Bastion — Policy Summary");
+  lines.push("============================");
+  lines.push("");
+  lines.push(`Default decision : ${policy.defaultAllow ? "ALLOW" : "DENY"}`);
+  lines.push(`Max bytes        : ${policy.maxBytes}`);
+  lines.push(`Max depth        : ${policy.maxDepth}`);
+  lines.push(
+    `Rate limit       : ${policy.rateLimit === 0 ? "unlimited" : `${policy.rateLimit} / ${policy.rateWindowMs} ms`}`,
+  );
+  lines.push(`Redaction mask   : ${policy.redactionMask}`);
+  lines.push("");
+  lines.push(`Allowed tools (${policy.allowTools.length}):`);
