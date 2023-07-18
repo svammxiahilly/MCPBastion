@@ -66,3 +66,8 @@
   <text x="200" y="392" text-anchor="middle" fill="#4f9fd0" font-size="9">demo: 4 forward · 6 deny · 0 drop · 0 error</text>
 
   <!-- ===== TERMINAL ===== -->
+  <g transform="translate(392,54)">
+    <rect width="544" height="300" rx="8" fill="#040a1c" stroke="#173a63" stroke-width="1.2"/>
+    <rect width="544" height="24" rx="8" fill="#0a1732"/>
+    <text x="12" y="16" fill="#5fd6ff" font-size="10">$ node console/dist/cli.js tail sessions/demo-audit.jsonl</text>
+
