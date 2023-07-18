@@ -59,3 +59,10 @@ export function aggregate(report: ParseReport): Aggregate {
   const toolAgg = new Map<string, ToolStat & { mutable: true }>();
 
   for (const ev of report.events) {
+    bump(counts, ev.decision);
+    bytesIn += ev.bytesIn;
+    bytesOut += ev.bytesOut;
+    if (ev.redacted.length > 0) redactionEvents += 1;
+    if (!ev.balanced) unbalanced += 1;
+    if (ev.maxDepth > maxDepthSeen) maxDepthSeen = ev.maxDepth;
+
