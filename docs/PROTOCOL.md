@@ -92,3 +92,12 @@ audit sink (`stderr` by default, or `--audit <file>`). Serialisation is in
 | `ts_ms`     | number            | Milliseconds since process start (plus `--epoch-ms` base). |
 | `seq`       | number            | 1-based counter of non-empty input lines. |
 | `decision`  | string            | `forward` \| `deny` \| `drop` \| `error`. |
+| `reason`    | string            | Human-readable rule that produced the decision. |
+| `method`    | string \| null    | Extracted `method`, or null. |
+| `tool`      | string \| null    | Extracted `params.name` for `tools/call`, else null. |
+| `id`        | string \| null    | Raw text of the top-level `id`, or null. |
+| `bytes_in`  | number            | Length of the input line in bytes. |
+| `bytes_out` | number            | Length of the forwarded message, or 0. |
+| `redacted`  | string[]          | Argument keys whose values were redacted. |
+| `balanced`  | boolean           | Whether brackets/quotes balanced across the input. |
+| `max_depth` | number            | Maximum nesting depth observed. |
