@@ -178,3 +178,21 @@ mod tests {
     #[test]
     fn serialises_expected_fields() {
         let j = sample().to_json();
+        assert!(j.starts_with('{') && j.ends_with('}'));
+        assert!(j.contains(r#""decision":"forward""#));
+        assert!(j.contains(r#""method":"tools/call""#));
+        assert!(j.contains(r#""tool":"read_file""#));
+        assert!(j.contains(r#""redacted":["token"]"#));
+        assert!(j.contains(r#""balanced":true"#));
+        assert!(j.contains(r#""max_depth":3"#));
+    }
+
+    #[test]
+    fn nulls_are_emitted_for_absent_fields() {
+        let mut e = sample();
+        e.method = None;
+        e.tool = None;
+        e.id = None;
+        let j = e.to_json();
+        assert!(j.contains(r#""method":null"#));
+        assert!(j.contains(r#""tool":null"#));
