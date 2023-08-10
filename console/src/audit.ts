@@ -125,3 +125,13 @@ export function parseLine(raw: string, lineNo: number): ParsedLine {
         kind: "summary",
         summary: {
           summary: true,
+          total: asNumber(value, "total"),
+          forward: asNumber(value, "forward"),
+          deny: asNumber(value, "deny"),
+          drop: asNumber(value, "drop"),
+          error: asNumber(value, "error"),
+        },
+      };
+    }
+    const event: AuditEvent = {
+      tsMs: asNumber(value, "ts_ms"),
