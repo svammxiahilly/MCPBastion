@@ -71,3 +71,8 @@
     <rect width="544" height="24" rx="8" fill="#0a1732"/>
     <text x="12" y="16" fill="#5fd6ff" font-size="10">$ node console/dist/cli.js tail sessions/demo-audit.jsonl</text>
 
+    <g font-size="10.5">
+      <text x="12" y="46" fill="#12ffd6">#3 FORWARD read_file      allow_tool read_file</text>
+      <text x="12" y="64" fill="#12ffd6">#4 FORWARD list_dir       allow_tool list_dir <tspan fill="#ffb020">[redacted: api_key]</tspan></text>
+      <text x="12" y="82" fill="#12ffd6">#5 FORWARD search_files   allow_tool search_files <tspan fill="#ffb020">[redacted: access_token]</tspan></text>
+      <text x="12" y="100" fill="#ff6b83">#6 DENY    shell.exec     deny_tool shell.*</text>
