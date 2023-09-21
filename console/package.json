@@ -13,3 +13,4 @@
     "test": "node --test dist/test/console.test.js",
     "report": "node dist/cli.js report",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+  },
