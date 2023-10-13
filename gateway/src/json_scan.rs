@@ -283,3 +283,24 @@ fn scan_container(bytes: &[u8], i: usize, open: u8, close: u8) -> Option<usize> 
     None
 }
 
+/// Locate the value associated with `key` inside the object that starts at
+/// `obj_start` (which must point at `{`). Only keys at the *immediate* level of
+/// that object are considered — nested objects are skipped over wholesale.
+///
+/// Returns the span of the value (kind + byte range) or `None` if the key is
+/// absent, or the object is malformed.
+pub fn find_key_in_object(bytes: &[u8], obj_start: usize, key: &str) -> Option<ValueSpan> {
+    let start = skip_ws(bytes, obj_start);
+    if bytes.get(start) != Some(&b'{') {
+        return None;
+    }
+    let mut i = skip_ws(bytes, start + 1);
+    if bytes.get(i) == Some(&b'}') {
+        return None; // empty object
+    }
+    loop {
+        // Expect a string key.
+        if bytes.get(i) != Some(&b'"') {
+            return None;
+        }
+        let key_end = scan_string(bytes, i)?;
