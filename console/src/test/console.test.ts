@@ -67,3 +67,15 @@ test("aggregate computes decision counts and byte totals", () => {
   assert.equal(agg.redactionEvents, 1);
   assert.equal(agg.redactedKeyCounts.get("api_key"), 1);
   assert.equal(agg.summaryMatches, true);
+});
+
+test("aggregate detects summary mismatch", () => {
+  const bad = SAMPLE.replace('"forward":2', '"forward":99');
+  const agg = aggregate(parseAuditLog(bad));
+  assert.equal(agg.summaryMatches, false);
+});
+
+test("aggregate builds per-tool stats sorted by total", () => {
+  const rep = parseAuditLog(SAMPLE);
+  const agg = aggregate(rep);
+  const tools = agg.tools.map((t) => t.tool);
