@@ -11,3 +11,4 @@ allow_tool = read_file
 redact_arg = *token*
 redact_arg = *secret*
 redact_arg = *key*
+redact_arg = *password*
