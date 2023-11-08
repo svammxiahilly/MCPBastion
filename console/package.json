@@ -14,3 +14,5 @@
     "report": "node dist/cli.js report",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
   },
+  "engines": {
+    "node": ">=18"
