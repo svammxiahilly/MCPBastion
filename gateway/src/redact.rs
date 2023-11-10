@@ -164,3 +164,31 @@ fn skip_ws(bytes: &[u8], mut i: usize) -> usize {
             b' ' | b'\t' | b'\r' | b'\n' => i += 1,
             _ => break,
         }
+    }
+    i
+}
+
+fn scan_string(bytes: &[u8], i: usize) -> Option<usize> {
+    let mut j = i + 1;
+    while j < bytes.len() {
+        match bytes[j] {
+            b'\\' => {
+                if bytes.get(j + 1) == Some(&b'u') {
+                    j += 6;
+                } else {
+                    j += 2;
+                }
+            }
+            b'"' => return Some(j + 1),
+            _ => j += 1,
+        }
+    }
+    None
+}
+
+fn scan_value_end(bytes: &[u8], i: usize) -> Option<usize> {
+    let i = skip_ws(bytes, i);
+    match bytes.get(i)? {
+        b'"' => scan_string(bytes, i),
+        b'{' => scan_container(bytes, i, b'{', b'}'),
+        b'[' => scan_container(bytes, i, b'[', b']'),
