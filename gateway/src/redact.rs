@@ -192,3 +192,30 @@ fn scan_value_end(bytes: &[u8], i: usize) -> Option<usize> {
         b'"' => scan_string(bytes, i),
         b'{' => scan_container(bytes, i, b'{', b'}'),
         b'[' => scan_container(bytes, i, b'[', b']'),
+        _ => {
+            let mut j = i;
+            while j < bytes.len() {
+                match bytes[j] {
+                    b',' | b'}' | b']' | b' ' | b'\t' | b'\r' | b'\n' => break,
+                    _ => j += 1,
+                }
+            }
+            if j == i {
+                None
+            } else {
+                Some(j)
+            }
+        }
+    }
+}
+
+fn scan_container(bytes: &[u8], i: usize, open: u8, close: u8) -> Option<usize> {
+    let mut depth = 0usize;
+    let mut j = i;
+    while j < bytes.len() {
+        let b = bytes[j];
+        if b == b'"' {
+            j = scan_string(bytes, j)?;
+            continue;
+        }
+        if b == open {
