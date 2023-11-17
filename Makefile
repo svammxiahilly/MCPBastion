@@ -31,3 +31,10 @@ fmt: ## Format the Rust sources
 gateway-build: ## Build the gateway (release)
 	cd $(GATEWAY) && cargo build --release
 
+gateway-test: ## Run the gateway test suite
+	cd $(GATEWAY) && cargo test
+
+gateway-lint: ## Run clippy with warnings denied
+	cd $(GATEWAY) && cargo clippy --all-targets -- -D warnings
+
+# ---- TypeScript console ----------------------------------------------------
