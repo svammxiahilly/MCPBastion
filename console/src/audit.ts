@@ -135,3 +135,13 @@ export function parseLine(raw: string, lineNo: number): ParsedLine {
     }
     const event: AuditEvent = {
       tsMs: asNumber(value, "ts_ms"),
+      seq: asNumber(value, "seq"),
+      decision: asDecision(value, "decision"),
+      reason: asString(value, "reason"),
+      method: asStringOrNull(value, "method"),
+      tool: asStringOrNull(value, "tool"),
+      id: asStringOrNull(value, "id"),
+      bytesIn: asNumber(value, "bytes_in"),
+      bytesOut: asNumber(value, "bytes_out"),
+      redacted: asStringArray(value, "redacted"),
+      balanced: asBool(value, "balanced"),
