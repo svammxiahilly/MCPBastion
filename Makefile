@@ -38,3 +38,10 @@ gateway-lint: ## Run clippy with warnings denied
 	cd $(GATEWAY) && cargo clippy --all-targets -- -D warnings
 
 # ---- TypeScript console ----------------------------------------------------
+
+console-build: ## Install deps and compile the console
+	cd $(CONSOLE) && npm install && npm run build
+
+console-test: console-build ## Run the console test suite
+	cd $(CONSOLE) && npm test
+
