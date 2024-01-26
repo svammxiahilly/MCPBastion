@@ -10,3 +10,4 @@ npm-debug.log*
 yarn-error.log*
 
 # Editors / OS
+.vscode/
