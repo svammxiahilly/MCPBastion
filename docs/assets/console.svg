@@ -76,3 +76,9 @@
       <text x="12" y="64" fill="#12ffd6">#4 FORWARD list_dir       allow_tool list_dir <tspan fill="#ffb020">[redacted: api_key]</tspan></text>
       <text x="12" y="82" fill="#12ffd6">#5 FORWARD search_files   allow_tool search_files <tspan fill="#ffb020">[redacted: access_token]</tspan></text>
       <text x="12" y="100" fill="#ff6b83">#6 DENY    shell.exec     deny_tool shell.*</text>
+      <text x="12" y="118" fill="#ff6b83">#7 DENY    fs.delete      deny_tool fs.delete</text>
+      <text x="12" y="136" fill="#ff6b83">#8 DENY    format_disk    default deny</text>
+      <text x="12" y="154" fill="#12ffd6">#9 FORWARD get_metadata   allow_tool get_metadata <tspan fill="#ffb020">[redacted: authorization]</tspan></text>
+      <text x="12" y="172" fill="#ff6b83">#10 DENY   -              tools/call missing extractable params.name</text>
+    </g>
+
