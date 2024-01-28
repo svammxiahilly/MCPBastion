@@ -82,3 +82,8 @@
       <text x="12" y="172" fill="#ff6b83">#10 DENY   -              tools/call missing extractable params.name</text>
     </g>
 
+    <line x1="12" y1="188" x2="532" y2="188" stroke="#173a63"/>
+    <text x="12" y="208" fill="#5fd6ff" font-size="10">$ node console/dist/cli.js report sessions/demo-audit.jsonl</text>
+
+    <g font-size="10.5" fill="#bfe7ff">
+      <text x="12" y="230">Decisions   forward <tspan fill="#12ffd6">4</tspan> ####........  deny <tspan fill="#ff6b83">6</tspan> ############</text>
