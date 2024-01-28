@@ -324,3 +324,24 @@ pub fn find_key_in_object(bytes: &[u8], obj_start: usize, key: &str) -> Option<V
                 kind,
                 start: vs,
                 end: val_end,
+            });
+        }
+        // Move to the next member.
+        let after = skip_ws(bytes, val_end);
+        match bytes.get(after) {
+            Some(b',') => {
+                i = skip_ws(bytes, after + 1);
+            }
+            Some(b'}') => return None,
+            _ => return None,
+        }
+    }
+}
+
+/// Convenience: find a top-level key's value in a message and, if it is a
+/// string, decode it.
+pub fn top_level_string(bytes: &[u8], key: &str) -> Option<String> {
+    let start = skip_ws(bytes, 0);
+    let span = find_key_in_object(bytes, start, key)?;
+    if span.kind != ValueKind::String {
+        return None;
