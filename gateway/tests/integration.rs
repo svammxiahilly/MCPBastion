@@ -66,3 +66,9 @@ fn oversize_message_dropped() {
 #[test]
 fn rate_limit_enforced_across_calls() {
     let p = policy();
+    let mut rl = RateLimiter::new(p.rate_limit, p.rate_window_ms);
+    let msg = br#"{"method":"tools/call","params":{"name":"list_dir","arguments":{"path":"/"}}}"#;
+    let mut forwarded = 0;
+    let mut dropped = 0;
+    for seq in 1..=10 {
+        let out = process_line(msg, &p, &mut rl, seq, 0);
