@@ -5,3 +5,4 @@
 {"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"search_files","arguments":{"query":"password","access_token":"ghp_examplevalue123","note":"contains a {brace} and \"quotes\""}}}
 {"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"shell.exec","arguments":{"cmd":"rm -rf /"}}}
 {"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"name":"fs.delete","arguments":{"path":"/important"}}}
+{"jsonrpc":"2.0","id":8,"method":"tools/call","params":{"name":"format_disk","arguments":{"device":"/dev/sda"}}}
