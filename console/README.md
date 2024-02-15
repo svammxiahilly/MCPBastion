@@ -27,3 +27,5 @@ node dist/cli.js policy <policy-file>
   redaction tallies, byte totals. Cross-checks the gateway's own summary line
   and exits non-zero on mismatch. `--json` emits a machine-readable object;
   `--decision`/`--tool` add a filtered event listing.
+- **tail** — one compact line per event, optionally filtered by decision.
+- **policy** — parse, summarise and lint a policy file. Exits non-zero if the
