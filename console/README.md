@@ -29,3 +29,5 @@ node dist/cli.js policy <policy-file>
   `--decision`/`--tool` add a filtered event listing.
 - **tail** — one compact line per event, optionally filtered by decision.
 - **policy** — parse, summarise and lint a policy file. Exits non-zero if the
+  policy has errors (unknown directives, non-integer limits, …).
+
