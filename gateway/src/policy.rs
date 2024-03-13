@@ -257,3 +257,35 @@ fn strip_comment(line: &str) -> &str {
 
 fn split_directive(line: &str) -> (&str, &str) {
     if let Some(eq) = line.find('=') {
+        (&line[..eq], &line[eq + 1..])
+    } else if let Some(sp) = line.find(char::is_whitespace) {
+        (&line[..sp], &line[sp + 1..])
+    } else {
+        (line, "")
+    }
+}
+
+fn unquote(value: &str) -> String {
+    let v = value.trim();
+    if v.len() >= 2 && v.starts_with('"') && v.ends_with('"') {
+        v[1..v.len() - 1].to_string()
+    } else {
+        v.to_string()
+    }
+}
+
+fn parse_usize(value: &str, key: &str, line: usize) -> Result<usize, PolicyError> {
+    value.parse::<usize>().map_err(|_| PolicyError::BadValue {
+        line,
+        key: key.to_string(),
+        value: value.to_string(),
+    })
+}
+
+fn parse_u32(value: &str, key: &str, line: usize) -> Result<u32, PolicyError> {
+    value.parse::<u32>().map_err(|_| PolicyError::BadValue {
+        line,
+        key: key.to_string(),
+        value: value.to_string(),
+    })
+}
