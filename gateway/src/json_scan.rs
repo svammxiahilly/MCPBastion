@@ -345,3 +345,23 @@ pub fn top_level_string(bytes: &[u8], key: &str) -> Option<String> {
     let span = find_key_in_object(bytes, start, key)?;
     if span.kind != ValueKind::String {
         return None;
+    }
+    decode_string(bytes, span.start, span.end)
+}
+
+/// Convenience: find a top-level key and return its raw byte span regardless of
+/// kind.
+pub fn top_level_span(bytes: &[u8], key: &str) -> Option<ValueSpan> {
+    let start = skip_ws(bytes, 0);
+    find_key_in_object(bytes, start, key)
+}
+
+/// Perform a cheap structural balance/depth check over the whole input. This is
+/// used purely for audit metadata; it never rejects a message on its own.
+pub fn structure_report(bytes: &[u8]) -> StructureReport {
+    let mut depth: isize = 0;
+    let mut max_depth: usize = 0;
+    let mut i = 0;
+    let mut ok = true;
+    while i < bytes.len() {
+        match bytes[i] {
