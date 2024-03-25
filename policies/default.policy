@@ -18,3 +18,7 @@ deny_tool  = shell.*
 deny_tool  = fs.delete
 deny_tool  = fs.write
 deny_tool  = net.*
+deny_tool  = process.*
+
+# --- Argument redaction (values replaced before forwarding) -----------------
+# `*` is a wildcard matching any run of characters.
