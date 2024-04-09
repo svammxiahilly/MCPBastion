@@ -8,3 +8,4 @@
 //!   * [`engine`]    — the pure per-message decision pipeline.
 //!
 //! Everything here depends solely on the Rust standard library.
+
