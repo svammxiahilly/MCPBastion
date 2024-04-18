@@ -9,3 +9,5 @@ readme = "../README.md"
 keywords = ["mcp", "json-rpc", "gateway", "zero-trust", "security"]
 categories = ["command-line-utilities"]
 
+[lib]
+name = "mcp_bastion"
