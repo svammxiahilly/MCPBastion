@@ -9,3 +9,4 @@
 //!
 //! Everything here depends solely on the Rust standard library.
 
+pub mod audit;
