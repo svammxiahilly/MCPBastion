@@ -365,3 +365,23 @@ pub fn structure_report(bytes: &[u8]) -> StructureReport {
     let mut ok = true;
     while i < bytes.len() {
         match bytes[i] {
+            b'"' => match scan_string(bytes, i) {
+                Some(next) => {
+                    i = next;
+                    continue;
+                }
+                None => {
+                    ok = false;
+                    break;
+                }
+            },
+            b'{' | b'[' => {
+                depth += 1;
+                if depth as usize > max_depth {
+                    max_depth = depth as usize;
+                }
+            }
+            b'}' | b']' => {
+                depth -= 1;
+                if depth < 0 {
+                    ok = false;
