@@ -259,3 +259,25 @@ node console/dist/cli.js tail audit.jsonl --decision deny
 node console/dist/cli.js report audit.jsonl --json
 
 # Everything a single tool did across a session
+node console/dist/cli.js report audit.jsonl --tool read_file
+
+# Lint a policy before you trust it (exits non-zero on errors)
+node console/dist/cli.js policy policies/strict.policy
+
+# Send audit to stderr (no --audit) and keep only the forwarded stream
+cat session.jsonl | mcp-bastion --policy p.policy 2>/dev/null > forwarded.jsonl
+```
+
+## Exit behaviour
+
+Streams:
+
+- **stdout** — permitted, redacted messages, one per line. Flushed after every write.
+- **audit sink** — one JSON event per input line; `stderr` by default, or the `--audit` file. Also flushed per write.
+- **stderr** — errors and, absent `--audit`, the audit events themselves.
+
+Exit codes (from `gateway/src/main.rs`):
+
+| Code | Meaning |
+|------|---------|
+| `0` | Clean EOF — the session ended normally. |
