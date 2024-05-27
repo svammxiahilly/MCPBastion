@@ -48,3 +48,8 @@ Examples:
 | `*_secret`    | `db_secret`, `api_secret`        | `secret_key`       |
 
 ## Decision order
+
+For a `tools/call` message the gateway evaluates, in order:
+
+1. **Size** — if the raw message exceeds `max_bytes`, it is **dropped**.
+2. **Shape** — if the message is not a JSON object, it is **dropped**.
