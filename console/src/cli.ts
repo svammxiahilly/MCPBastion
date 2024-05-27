@@ -131,3 +131,22 @@ function cmdTail(flags: Flags): number {
     process.stdout.write(
       `#${ev.seq} ${ev.decision.toUpperCase().padEnd(7)} ${(ev.tool ?? ev.method ?? "-").padEnd(16)} ${ev.reason}${redaction}\n`,
     );
+  }
+  return 0;
+}
+
+function cmdPolicy(flags: Flags): number {
+  const path = flags.positional[0];
+  if (path === undefined) fail("policy requires a <policy-file> path");
+  const body = readFileOrFail(path);
+  const { policy, issues } = parsePolicy(body);
+  process.stdout.write(renderPolicy(policy, issues) + "\n");
+  return issues.some((i) => i.severity === "error") ? 1 : 0;
+}
+
+export function main(argv: string[]): number {
+  if (argv.length === 0 || argv[0] === "--help" || argv[0] === "-h") {
+    process.stdout.write(USAGE);
+    return argv.length === 0 ? 2 : 0;
+  }
+  const command = argv[0]!;
