@@ -5,3 +5,4 @@
 {"ts_ms":0,"seq":5,"decision":"forward","reason":"allow_tool search_files","method":"tools/call","tool":"search_files","id":"5","bytes_in":192,"bytes_out":185,"redacted":["access_token"],"balanced":true,"max_depth":3}
 {"ts_ms":0,"seq":6,"decision":"deny","reason":"deny_tool shell.*","method":"tools/call","tool":"shell.exec","id":"6","bytes_in":108,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":3}
 {"ts_ms":0,"seq":7,"decision":"deny","reason":"deny_tool fs.delete","method":"tools/call","tool":"fs.delete","id":"7","bytes_in":110,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":3}
+{"ts_ms":0,"seq":8,"decision":"deny","reason":"default deny","method":"tools/call","tool":"format_disk","id":"8","bytes_in":112,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":3}
