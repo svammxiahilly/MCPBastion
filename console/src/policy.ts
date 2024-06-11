@@ -133,3 +133,20 @@ export function parsePolicy(text: string): PolicyParseResult {
       case "max_bytes": {
         const n = parseIntStrict(value);
         if (n === null)
+          issues.push({ line: lineNo, severity: "error", message: `max_bytes must be an integer` });
+        else policy.maxBytes = n;
+        break;
+      }
+      case "max_depth": {
+        const n = parseIntStrict(value);
+        if (n === null)
+          issues.push({ line: lineNo, severity: "error", message: `max_depth must be an integer` });
+        else policy.maxDepth = n;
+        break;
+      }
+      case "rate_limit": {
+        const n = parseIntStrict(value);
+        if (n === null)
+          issues.push({ line: lineNo, severity: "error", message: `rate_limit must be an integer` });
+        else policy.rateLimit = n;
+        break;
