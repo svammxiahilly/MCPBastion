@@ -102,3 +102,15 @@ test("renderReport produces a stable header and counts", () => {
 test("parsePolicy reads directives and defaults", () => {
   const text = [
     "default = deny",
+    "allow_tool = read_file",
+    "deny_tool = shell.*",
+    "redact_arg = *token*",
+    "max_bytes = 1024",
+    "rate_limit = 5",
+    'redaction_mask = "***"',
+  ].join("\n");
+  const { policy, issues } = parsePolicy(text);
+  assert.equal(policy.defaultAllow, false);
+  assert.deepEqual(policy.allowTools, ["read_file"]);
+  assert.deepEqual(policy.denyTools, ["shell.*"]);
+  assert.equal(policy.maxBytes, 1024);
