@@ -155,3 +155,13 @@ export function parseLine(raw: string, lineNo: number): ParsedLine {
 
 /** Result of parsing a whole audit log. */
 export interface ParseReport {
+  readonly events: AuditEvent[];
+  readonly summary: SummaryLine | null;
+  readonly errors: { readonly line: number; readonly message: string }[];
+}
+
+/** Parse an entire audit log body (newline-delimited). */
+export function parseAuditLog(body: string): ParseReport {
+  const events: AuditEvent[] = [];
+  const errors: { line: number; message: string }[] = [];
+  let summary: SummaryLine | null = null;
