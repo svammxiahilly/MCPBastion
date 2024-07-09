@@ -13,3 +13,5 @@ categories = ["command-line-utilities"]
 name = "mcp_bastion"
 path = "src/lib.rs"
 
+[[bin]]
+name = "mcp-bastion"
