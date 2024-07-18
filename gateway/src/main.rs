@@ -191,3 +191,27 @@ fn run_session<R: Read>(
         let processed = engine::process_line(trimmed.as_bytes(), policy, &mut limiter, seq, now_ms);
 
         if let Some(bytes) = &processed.forward {
+            out.write_all(bytes)?;
+            out.write_all(b"\n")?;
+            out.flush()?;
+        }
+
+        let ev = processed.event;
+        *counts.entry(ev.decision.as_str()).or_insert(0) += 1;
+        writeln!(audit, "{}", ev.to_json())?;
+        audit.flush()?;
+    }
+
+    if stats {
+        let summary = format!(
+            "{{\"summary\":true,\"total\":{},\"forward\":{},\"deny\":{},\"drop\":{},\"error\":{}}}",
+            seq,
+            counts.get(Decision::Forward.as_str()).copied().unwrap_or(0),
+            counts.get(Decision::Deny.as_str()).copied().unwrap_or(0),
+            counts.get(Decision::Drop.as_str()).copied().unwrap_or(0),
+            counts.get(Decision::Error.as_str()).copied().unwrap_or(0),
+        );
+        writeln!(audit, "{summary}")?;
+        audit.flush()?;
+    }
+
