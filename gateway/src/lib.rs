@@ -11,3 +11,4 @@
 
 pub mod audit;
 pub mod engine;
+pub mod json_scan;
