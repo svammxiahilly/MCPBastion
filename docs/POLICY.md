@@ -53,3 +53,8 @@ For a `tools/call` message the gateway evaluates, in order:
 
 1. **Size** — if the raw message exceeds `max_bytes`, it is **dropped**.
 2. **Shape** — if the message is not a JSON object, it is **dropped**.
+3. **Tool name** — extracted from `params.name`. A `tools/call` without an
+   extractable string name is **denied** (fail-closed).
+4. **Deny list** — if the name matches any `deny_tool`, **deny**.
+5. **Allow list** — else if it matches any `allow_tool`, continue.
+6. **Default** — else apply `default`.
