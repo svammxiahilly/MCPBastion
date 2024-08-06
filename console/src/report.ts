@@ -89,3 +89,11 @@ export function aggregate(report: ParseReport): Aggregate {
         denied: prev.denied + (ev.decision === "deny" ? 1 : 0),
         dropped: prev.dropped + (ev.decision === "drop" ? 1 : 0),
       };
+      toolAgg.set(ev.tool, next);
+    }
+  }
+
+  const tools = [...toolAgg.values()]
+    .map(({ mutable: _mutable, ...rest }) => rest)
+    .sort((a, b) => b.total - a.total || a.tool.localeCompare(b.tool));
+
