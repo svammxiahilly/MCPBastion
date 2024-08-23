@@ -22,3 +22,6 @@ deny_tool  = process.*
 
 # --- Argument redaction (values replaced before forwarding) -----------------
 # `*` is a wildcard matching any run of characters.
+redact_arg = *token*
+redact_arg = *secret*
+redact_arg = password
