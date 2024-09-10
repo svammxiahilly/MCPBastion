@@ -85,3 +85,9 @@ fn rate_limit_enforced_across_calls() {
 #[test]
 fn structural_metadata_recorded() {
     let p = policy();
+    let mut rl = RateLimiter::new(0, 1000);
+    let msg =
+        br#"{"method":"tools/call","params":{"name":"read_file","arguments":{"a":{"b":{"c":1}}}}}"#;
+    let out = process_line(msg, &p, &mut rl, 1, 0);
+    assert!(out.event.balanced);
+    assert!(out.event.max_depth >= 4);
