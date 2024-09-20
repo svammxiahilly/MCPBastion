@@ -58,3 +58,8 @@ For a `tools/call` message the gateway evaluates, in order:
 4. **Deny list** — if the name matches any `deny_tool`, **deny**.
 5. **Allow list** — else if it matches any `allow_tool`, continue.
 6. **Default** — else apply `default`.
+7. **Rate limit** — if it would be forwarded but the window is full, **drop**.
+8. **Redaction** — matching argument values are replaced, then the message is
+   **forwarded**.
+
+Methods other than `tools/call` (e.g. `initialize`, `tools/list`) are gated
