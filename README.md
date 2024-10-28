@@ -281,3 +281,25 @@ Exit codes (from `gateway/src/main.rs`):
 | Code | Meaning |
 |------|---------|
 | `0` | Clean EOF — the session ended normally. |
+| `1` | I/O error during the session. |
+| `2` | Usage error (bad or missing arguments). |
+| `3` | Policy could not be read or parsed. |
+
+`error` as an audit *decision* is reserved and not emitted in 0.1 — the pipeline maps every message to forward, deny, or drop.
+
+## Troubleshooting
+
+- **`report` exits non-zero with `Gateway summary : MISMATCH!`** — the gateway's `--stats` counts and the console's recount disagree. Confirm you ran the gateway *with* `--stats`, and that the audit file wasn't truncated or appended to across runs (the gateway *creates* the file fresh with `--audit`).
+- **Everything is denied, including `initialize`.** Expected under `default = deny`: non-`tools/call` methods are gated by `default`. Set `default = allow` if you want the handshake through, or scope with explicit rules.
+- **A tool call I allowed is still denied.** Check for a `deny_tool` glob that also matches it — deny wins. Also confirm the match is case-sensitive and whole-string (`read_file` ≠ `read_files`).
+- **Nothing was redacted although a secret went through.** The value's key must match a `redact_arg` glob *and* sit directly inside `params.arguments`. A secret nested deeper, or under another key, won't match — widen the pattern (e.g. `*token*`) or add the key.
+- **A large message vanished with no deny reason.** It was likely **dropped** by `max_bytes` (checked before anything else) or by the rate limiter — look for `decision: drop` in the audit line.
+- **`policy` reports lint errors and exits non-zero.** Fix unknown directives and non-integer numeric values; those are hard errors. Shadowed allows and redundant allow-lists are only warnings.
+
+## Roadmap
+
+0.1 is intentionally small and honest. Out of scope for now:
+
+- **Response-side inspection.** Today the checkpoint reasons about requests; correlating and gating responses/results is future work.
+- **Richer matching.** `?` and character-class globs, and per-tool argument schemas, are candidates beyond the current literal-plus-`*` matcher.
+- **Live transport adapters.** The `stdin/stdout` JSONL contract is fixed by design; any HTTP/SSE bridging would be a separate, clearly-scoped component — not implied here.
