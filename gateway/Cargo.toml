@@ -15,3 +15,5 @@ path = "src/lib.rs"
 
 [[bin]]
 name = "mcp-bastion"
+path = "src/main.rs"
+
