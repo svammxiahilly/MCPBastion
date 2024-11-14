@@ -29,3 +29,6 @@ redact_arg = api_key
 redact_arg = authorization
 
 # --- Limits ------------------------------------------------------------------
+max_bytes      = 65536     # reject any single message larger than 64 KiB
+max_depth      = 32        # nesting depth flagged in audit metadata
+rate_limit     = 20        # at most 20 forwarded messages ...
