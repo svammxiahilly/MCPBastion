@@ -63,3 +63,8 @@ For a `tools/call` message the gateway evaluates, in order:
    **forwarded**.
 
 Methods other than `tools/call` (e.g. `initialize`, `tools/list`) are gated
+solely by `default`, so `default = deny` locks the gateway to an audited
+allow-list of tool calls and nothing else.
+
+## Worked example
+
