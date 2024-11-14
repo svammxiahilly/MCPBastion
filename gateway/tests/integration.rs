@@ -91,3 +91,9 @@ fn structural_metadata_recorded() {
     let out = process_line(msg, &p, &mut rl, 1, 0);
     assert!(out.event.balanced);
     assert!(out.event.max_depth >= 4);
+}
+
+#[test]
+fn braces_inside_string_do_not_confuse_extraction() {
+    let p = policy();
+    let mut rl = RateLimiter::new(0, 1000);
