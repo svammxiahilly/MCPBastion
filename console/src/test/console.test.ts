@@ -114,3 +114,14 @@ test("parsePolicy reads directives and defaults", () => {
   assert.deepEqual(policy.allowTools, ["read_file"]);
   assert.deepEqual(policy.denyTools, ["shell.*"]);
   assert.equal(policy.maxBytes, 1024);
+  assert.equal(policy.rateLimit, 5);
+  assert.equal(policy.redactionMask, "***");
+  assert.equal(issues.filter((i) => i.severity === "error").length, 0);
+});
+
+test("parsePolicy flags unknown directive", () => {
+  const { issues } = parsePolicy("wat = 1\n");
+  assert.ok(issues.some((i) => i.severity === "error" && i.message.includes("unknown directive")));
+});
+
+test("parsePolicy warns on shadowed allow", () => {
