@@ -18,3 +18,4 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "@types/node": "^20.19.43",
