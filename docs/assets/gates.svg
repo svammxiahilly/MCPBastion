@@ -109,3 +109,15 @@
   <path id="wRed"   d="M340 200 C 395 200 405 214 430 214" stroke="#ffb020" stroke-width="1.4" fill="none" opacity="0.5"/>
   <path id="wDeny"  d="M340 200 C 390 200 400 300 430 324" stroke="#ff2b4e" stroke-width="1.4" fill="none" opacity="0.5"/>
 
+  <!-- wires gates -> server -->
+  <path id="wOutA" d="M580 104 C 690 104 720 190 814 198" stroke="#12ffd6" stroke-width="1.4" fill="none" opacity="0.5"/>
+  <path id="wOutR" d="M580 214 C 690 214 720 202 814 202" stroke="#ffb020" stroke-width="1.4" fill="none" opacity="0.5"/>
+
+  <!-- packet legend of what flows -->
+  <g font-size="9" fill="#6f86b0">
+    <text x="150" y="300">read_file · list_dir · search_files · get_metadata  ▸ allow</text>
+    <text x="150" y="316">*token* · *secret* · api_key · authorization         ▸ redact</text>
+    <text x="150" y="332">shell.* · fs.delete · net.* · unknown · no-name       ▸ deny</text>
+  </g>
+
+  <!-- animated request packets -->
