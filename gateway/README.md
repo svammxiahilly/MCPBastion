@@ -31,3 +31,6 @@ Reads newline-delimited JSON-RPC from stdin, forwards permitted (redacted)
 messages to stdout, and writes one JSON audit event per message to the audit
 sink.
 
+## Modules
+
+| Module        | Responsibility                                             |
