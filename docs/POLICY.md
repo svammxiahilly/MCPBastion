@@ -68,3 +68,8 @@ allow-list of tool calls and nothing else.
 
 ## Worked example
 
+```text
+default = deny
+allow_tool = read_file
+deny_tool  = shell.*
+redact_arg = *token*
