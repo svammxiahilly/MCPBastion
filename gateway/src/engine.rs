@@ -278,3 +278,34 @@ redaction_mask = \"***\"
         let out = run(
             r#"{"method":"tools/call","params":{"name":"read_file","arguments":{}}}"#,
             &p,
+            &mut rl,
+            1,
+            0,
+        );
+        assert_eq!(out.event.decision, Decision::Drop);
+        assert!(out.event.reason.contains("size limit"));
+    }
+
+    #[test]
+    fn rate_limit_drops_excess() {
+        let p = engine_policy();
+        let mut rl = RateLimiter::new(p.rate_limit, p.rate_window_ms);
+        let msg = r#"{"method":"tools/call","params":{"name":"read_file","arguments":{}}}"#;
+        for seq in 1..=3 {
+            assert_eq!(
+                run(msg, &p, &mut rl, seq, 0).event.decision,
+                Decision::Forward
+            );
+        }
+        let out = run(msg, &p, &mut rl, 4, 0);
+        assert_eq!(out.event.decision, Decision::Drop);
+        assert!(out.event.reason.contains("rate limit"));
+    }
+
+    #[test]
+    fn non_object_is_dropped() {
+        let p = engine_policy();
+        let mut rl = RateLimiter::new(0, 1000);
+        let out = run("not json at all", &p, &mut rl, 1, 0);
+        assert_eq!(out.event.decision, Decision::Drop);
+        assert!(out.event.reason.contains("not a JSON object"));
