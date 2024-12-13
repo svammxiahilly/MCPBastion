@@ -17,3 +17,5 @@ path = "src/lib.rs"
 name = "mcp-bastion"
 path = "src/main.rs"
 
+[profile.release]
+opt-level = 3
