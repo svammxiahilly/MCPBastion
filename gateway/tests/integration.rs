@@ -97,3 +97,10 @@ fn structural_metadata_recorded() {
 fn braces_inside_string_do_not_confuse_extraction() {
     let p = policy();
     let mut rl = RateLimiter::new(0, 1000);
+    let msg = br#"{"method":"tools/call","params":{"name":"read_file","arguments":{"path":"a{b}c","token":"x"}}}"#;
+    let out = process_line(msg, &p, &mut rl, 1, 0);
+    assert_eq!(out.event.decision, Decision::Forward);
+    let fwd = String::from_utf8(out.forward.unwrap()).unwrap();
+    assert!(fwd.contains(r#""path":"a{b}c""#), "got: {fwd}");
+    assert!(fwd.contains(r#""token":"[REDACTED]""#), "got: {fwd}");
+}
