@@ -7,3 +7,4 @@
 {"ts_ms":0,"seq":7,"decision":"deny","reason":"deny_tool fs.delete","method":"tools/call","tool":"fs.delete","id":"7","bytes_in":110,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":3}
 {"ts_ms":0,"seq":8,"decision":"deny","reason":"default deny","method":"tools/call","tool":"format_disk","id":"8","bytes_in":112,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":3}
 {"ts_ms":0,"seq":9,"decision":"forward","reason":"allow_tool get_metadata","method":"tools/call","tool":"get_metadata","id":"9","bytes_in":159,"bytes_out":155,"redacted":["authorization"],"balanced":true,"max_depth":3}
+{"ts_ms":0,"seq":10,"decision":"deny","reason":"tools/call missing extractable params.name","method":"tools/call","tool":null,"id":"10","bytes_in":84,"bytes_out":0,"redacted":[],"balanced":true,"max_depth":3}
