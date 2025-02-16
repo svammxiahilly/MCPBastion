@@ -4,3 +4,4 @@ version = 4
 
 [[package]]
 name = "mcp-bastion"
+version = "0.1.0"
