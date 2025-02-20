@@ -34,3 +34,6 @@ sink.
 ## Modules
 
 | Module        | Responsibility                                             |
+|---------------|------------------------------------------------------------|
+| `json_scan`   | Honest single-pass JSON field extractor (not a full parser).|
+| `policy`      | Policy format, glob matcher, sliding-window rate limiter.   |
