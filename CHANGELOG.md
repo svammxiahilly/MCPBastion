@@ -25,3 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `--stats` summary line and deterministic `--epoch-ms` mode for demos.
 - **TypeScript console (`console/`)** — a dependency-free (Node standard
   library only) viewer:
+  - `report` — aggregate an audit log into decision counts, per-tool stats,
+    redaction tallies, and a byte summary; cross-checks the gateway's own
+    summary line. `--json` for machine output; `--decision`/`--tool` filters.
+  - `tail` — one compact line per event.
