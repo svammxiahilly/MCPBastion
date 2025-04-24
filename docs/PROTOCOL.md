@@ -111,3 +111,12 @@ audit sink (`stderr` by default, or `--audit <file>`). Serialisation is in
 | `drop`    | Discarded by a limit (size / rate) or because it is not an object. |
 | `error`   | Reserved for internal processing errors (none emitted in 0.1). |
 
+### Summary line
+
+With `--stats`, a final object is appended to the audit sink:
+
+```json
+{"summary":true,"total":10,"forward":4,"deny":6,"drop":0,"error":0}
+```
+
+The console cross-checks this against its own recount and exits non-zero from
