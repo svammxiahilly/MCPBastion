@@ -32,3 +32,7 @@ redact_arg = authorization
 max_bytes      = 65536     # reject any single message larger than 64 KiB
 max_depth      = 32        # nesting depth flagged in audit metadata
 rate_limit     = 20        # at most 20 forwarded messages ...
+rate_window_ms = 1000      # ... per rolling 1000 ms window
+
+# Replacement text spliced in place of redacted values.
+redaction_mask = "«redacted»"
