@@ -303,3 +303,25 @@ Exit codes (from `gateway/src/main.rs`):
 - **Response-side inspection.** Today the checkpoint reasons about requests; correlating and gating responses/results is future work.
 - **Richer matching.** `?` and character-class globs, and per-tool argument schemas, are candidates beyond the current literal-plus-`*` matcher.
 - **Live transport adapters.** The `stdin/stdout` JSONL contract is fixed by design; any HTTP/SSE bridging would be a separate, clearly-scoped component — not implied here.
+- **The `error` decision.** Reserved in the schema; wiring internal processing faults to it is planned.
+
+See [`CHANGELOG.md`](CHANGELOG.md) for what 0.1.0 actually shipped.
+
+## Repository layout
+
+```
+mcp-bastion/
+├── gateway/            Rust std-only gateway CLI (the enforcement point)
+│   └── src/            json_scan · policy · redact · audit · engine · main
+├── console/            TypeScript, Node-stdlib-only audit & policy viewer
+│   └── src/            audit · report · policy · render · cli (+ node:test)
+├── policies/           default · strict · permissive samples
+├── sessions/           demo session + captured forwarded/audit output
+├── docs/               POLICY.md, PROTOCOL.md, assets/ (SVGs)
+├── Makefile            build / test / lint / demo orchestration
+└── .github/workflows/  CI across both languages + integration
+```
+
+## License
+
+[MIT](LICENSE).
