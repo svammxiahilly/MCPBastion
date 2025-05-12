@@ -73,3 +73,8 @@ default = deny
 allow_tool = read_file
 deny_tool  = shell.*
 redact_arg = *token*
+max_bytes  = 65536
+rate_limit = 20
+rate_window_ms = 1000
+redaction_mask = "«redacted»"
+```
