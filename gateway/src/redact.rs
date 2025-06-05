@@ -247,3 +247,31 @@ mod tests {
     #[test]
     fn redacts_matching_string_arg() {
         let msg = br#"{"method":"tools/call","params":{"name":"login","arguments":{"user":"alice","token":"secret123"}}}"#;
+        let p = policy_with(&["token"]);
+        let r = redact_message(msg, &p);
+        let out = String::from_utf8(r.bytes).unwrap();
+        assert!(out.contains(r#""token":"***""#), "got: {out}");
+        assert!(out.contains(r#""user":"alice""#));
+        assert_eq!(r.redacted_keys, vec!["token".to_string()]);
+    }
+
+    #[test]
+    fn redacts_object_valued_arg() {
+        let msg = br#"{"method":"tools/call","params":{"name":"cfg","arguments":{"creds":{"k":"v"},"keep":1}}}"#;
+        let p = policy_with(&["creds"]);
+        let r = redact_message(msg, &p);
+        let out = String::from_utf8(r.bytes).unwrap();
+        assert!(out.contains(r#""creds":"***""#), "got: {out}");
+        assert!(out.contains(r#""keep":1"#));
+    }
+
+    #[test]
+    fn wildcard_redaction() {
+        let msg = br#"{"method":"tools/call","params":{"name":"x","arguments":{"api_password":"p","note":"ok"}}}"#;
+        let p = policy_with(&["*password*"]);
+        let r = redact_message(msg, &p);
+        let out = String::from_utf8(r.bytes).unwrap();
+        assert!(out.contains(r#""api_password":"***""#), "got: {out}");
+        assert!(out.contains(r#""note":"ok""#));
+    }
+
