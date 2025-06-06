@@ -14,3 +14,4 @@ yarn-error.log*
 .idea/
 *.swp
 .DS_Store
+Thumbs.db
