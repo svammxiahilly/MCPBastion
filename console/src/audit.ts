@@ -165,3 +165,13 @@ export function parseAuditLog(body: string): ParseReport {
   const events: AuditEvent[] = [];
   const errors: { line: number; message: string }[] = [];
   let summary: SummaryLine | null = null;
+
+  const lines = body.split(/\r?\n/);
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i]!.trim();
+    if (trimmed.length === 0) continue;
+    const parsed = parseLine(trimmed, i + 1);
+    switch (parsed.kind) {
+      case "event":
+        events.push(parsed.event);
+        break;
