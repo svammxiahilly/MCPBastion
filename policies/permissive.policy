@@ -14,3 +14,5 @@ deny_tool = process.kill
 redact_arg = *token*
 redact_arg = password
 redact_arg = *secret*
+
+max_bytes      = 262144   # 256 KiB
