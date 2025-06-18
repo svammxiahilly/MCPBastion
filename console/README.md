@@ -31,3 +31,5 @@ node dist/cli.js policy <policy-file>
 - **policy** — parse, summarise and lint a policy file. Exits non-zero if the
   policy has errors (unknown directives, non-integer limits, …).
 
+`D` is one of `forward`, `deny`, `drop`, `error`.
+
