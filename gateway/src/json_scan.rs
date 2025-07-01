@@ -406,3 +406,23 @@ mod tests {
     fn extracts_top_level_string() {
         let s = br#"{"jsonrpc":"2.0","method":"tools/call","id":7}"#;
         assert_eq!(top_level_string(s, "method").as_deref(), Some("tools/call"));
+        assert_eq!(top_level_string(s, "jsonrpc").as_deref(), Some("2.0"));
+    }
+
+    #[test]
+    fn ignores_braces_inside_strings() {
+        let s = br#"{"method":"a{b}c","note":"}}}"}"#;
+        assert_eq!(top_level_string(s, "method").as_deref(), Some("a{b}c"));
+        assert_eq!(top_level_string(s, "note").as_deref(), Some("}}}"));
+    }
+
+    #[test]
+    fn handles_escaped_quotes() {
+        let s = br#"{"method":"say \"hi\"","id":1}"#;
+        assert_eq!(top_level_string(s, "method").as_deref(), Some("say \"hi\""));
+    }
+
+    #[test]
+    fn nested_key_not_matched_at_top_level() {
+        let s = br#"{"params":{"method":"inner"},"method":"outer"}"#;
+        assert_eq!(top_level_string(s, "method").as_deref(), Some("outer"));
