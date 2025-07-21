@@ -167,3 +167,20 @@ export function parsePolicy(text: string): PolicyParseResult {
         break;
     }
   }
+
+  // Cross-directive lints.
+  for (const allow of policy.allowTools) {
+    if (policy.denyTools.some((d) => globMatch(d, allow))) {
+      issues.push({
+        line: 0,
+        severity: "warning",
+        message: `allow_tool '${allow}' is shadowed by a deny_tool rule (deny wins)`,
+      });
+    }
+  }
+  if (policy.defaultAllow && policy.allowTools.length > 0) {
+    issues.push({
+      line: 0,
+      severity: "warning",
+      message: `default = allow makes the allow_tool list redundant except for documentation`,
+    });
