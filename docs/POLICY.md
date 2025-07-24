@@ -78,3 +78,8 @@ rate_limit = 20
 rate_window_ms = 1000
 redaction_mask = "«redacted»"
 ```
+
+- `read_file` → allowed.
+- `shell.exec` → denied (matches `shell.*`).
+- `write_file` → denied (default, not on allow list).
+- `read_file` with an `auth_token` argument → forwarded with the token value
