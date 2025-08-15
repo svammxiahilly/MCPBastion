@@ -426,3 +426,24 @@ mod tests {
     fn nested_key_not_matched_at_top_level() {
         let s = br#"{"params":{"method":"inner"},"method":"outer"}"#;
         assert_eq!(top_level_string(s, "method").as_deref(), Some("outer"));
+    }
+
+    #[test]
+    fn finds_nested_object_then_key() {
+        let s = br#"{"params":{"name":"read_file"}}"#;
+        let params = top_level_span(s, "params").unwrap();
+        assert_eq!(params.kind, ValueKind::Object);
+        let name = find_key_in_object(s, params.start, "name").unwrap();
+        assert_eq!(name.kind, ValueKind::String);
+        assert_eq!(
+            decode_string(s, name.start, name.end).as_deref(),
+            Some("read_file")
+        );
+    }
+
+    #[test]
+    fn unicode_escape_decodes() {
+        let s = br#"{"m":"caf\u00e9"}"#;
+        assert_eq!(top_level_string(s, "m").as_deref(), Some("café"));
+    }
+
