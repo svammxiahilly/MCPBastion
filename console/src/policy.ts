@@ -184,3 +184,20 @@ export function parsePolicy(text: string): PolicyParseResult {
       severity: "warning",
       message: `default = allow makes the allow_tool list redundant except for documentation`,
     });
+  }
+
+  return { policy, issues };
+}
+
+/**
+ * A small glob matcher matching the Rust `Pattern`: `*` is a wildcard. Used for
+ * the shadowing lint above.
+ */
+export function globMatch(pattern: string, text: string): boolean {
+  const anchoredStart = !pattern.startsWith("*");
+  const anchoredEnd = !pattern.endsWith("*");
+  const parts = pattern.split("*").filter((p) => p.length > 0);
+  if (parts.length === 0) return true;
+
+  let pos = 0;
+  for (let idx = 0; idx < parts.length; idx++) {
