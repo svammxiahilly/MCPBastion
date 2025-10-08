@@ -125,3 +125,15 @@ test("parsePolicy flags unknown directive", () => {
 });
 
 test("parsePolicy warns on shadowed allow", () => {
+  const { issues } = parsePolicy("allow_tool = shell.exec\ndeny_tool = shell.*\n");
+  assert.ok(issues.some((i) => i.severity === "warning" && i.message.includes("shadowed")));
+});
+
+test("parsePolicy rejects non-integer limit", () => {
+  const { issues } = parsePolicy("max_bytes = big\n");
+  assert.ok(issues.some((i) => i.message.includes("max_bytes must be an integer")));
+});
+
+test("globMatch mirrors the Rust matcher", () => {
+  assert.equal(globMatch("read_file", "read_file"), true);
+  assert.equal(globMatch("shell.*", "shell.exec"), true);
