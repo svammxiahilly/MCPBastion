@@ -447,3 +447,23 @@ mod tests {
         assert_eq!(top_level_string(s, "m").as_deref(), Some("café"));
     }
 
+    #[test]
+    fn surrogate_pair_decodes() {
+        let s = br#"{"m":"\ud83d\ude00"}"#; // 😀
+        assert_eq!(top_level_string(s, "m").as_deref(), Some("😀"));
+    }
+
+    #[test]
+    fn utf8_passthrough() {
+        let s = "{\"m\":\"héllo wörld\"}".as_bytes();
+        assert_eq!(top_level_string(s, "m").as_deref(), Some("héllo wörld"));
+    }
+
+    #[test]
+    fn structure_balanced_and_depth() {
+        let s = br#"{"a":[1,2,{"b":3}]}"#;
+        let r = structure_report(s);
+        assert!(r.balanced);
+        assert_eq!(r.max_depth, 3);
+    }
+
