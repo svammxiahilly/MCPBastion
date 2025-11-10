@@ -120,3 +120,10 @@ export function aggregate(report: ParseReport): Aggregate {
     unbalanced,
     maxDepthSeen,
     summaryMatches,
+  };
+}
+
+/** Sort a `Map<string, number>` into descending count order for display. */
+export function sortedEntries(m: ReadonlyMap<string, number>): [string, number][] {
+  return [...m.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+}
