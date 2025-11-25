@@ -33,3 +33,5 @@ node dist/cli.js policy <policy-file>
 
 `D` is one of `forward`, `deny`, `drop`, `error`.
 
+## Modules
+
