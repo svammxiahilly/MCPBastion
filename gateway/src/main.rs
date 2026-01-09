@@ -239,3 +239,27 @@ redaction_mask = \"***\"
     fn session(input: &str) -> (String, String) {
         let policy = Policy::parse(POLICY).unwrap();
         let mut out = Vec::new();
+        let mut audit = Vec::new();
+        run_session(
+            &policy,
+            input.as_bytes(),
+            &mut out,
+            &mut audit,
+            Some(1000),
+            true,
+        )
+        .unwrap();
+        (
+            String::from_utf8(out).unwrap(),
+            String::from_utf8(audit).unwrap(),
+        )
+    }
+
+    #[test]
+    fn forwards_allowed_redacts_and_denies() {
+        let input = concat!(
+            r#"{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"read_file","arguments":{"path":"/x","auth_token":"abc"}}}"#,
+            "\n",
+            r#"{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"shell.exec","arguments":{"cmd":"whoami"}}}"#,
+            "\n",
+        );
