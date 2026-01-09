@@ -35,3 +35,5 @@ node dist/cli.js policy <policy-file>
 
 ## Modules
 
+| Module      | Responsibility                                   |
+|-------------|--------------------------------------------------|
