@@ -19,3 +19,4 @@ max_bytes      = 8192
 max_depth      = 16
 rate_limit     = 5
 rate_window_ms = 1000
+redaction_mask = "«REDACTED»"
