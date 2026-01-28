@@ -13,3 +13,4 @@ pub mod audit;
 pub mod engine;
 pub mod json_scan;
 pub mod policy;
+pub mod redact;
