@@ -322,3 +322,35 @@ impl RateLimiter {
     pub fn check(&mut self, now_ms: u64) -> bool {
         if self.limit == 0 {
             return true;
+        }
+        let cutoff = now_ms.saturating_sub(self.window_ms);
+        self.events.retain(|&t| t >= cutoff);
+        if (self.events.len() as u32) < self.limit {
+            self.events.push(now_ms);
+            true
+        } else {
+            false
+        }
+    }
+
+    /// Current count of live events within the window at `now_ms`.
+    pub fn current(&self, now_ms: u64) -> usize {
+        let cutoff = now_ms.saturating_sub(self.window_ms);
+        self.events.iter().filter(|&&t| t >= cutoff).count()
+    }
+}
+
+/// Tracks per-tool statistics reported by the counters map for auditing.
+pub type ToolCounts = HashMap<String, u64>;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn pattern_exact() {
+        let p = Pattern::new("read_file");
+        assert!(p.matches("read_file"));
+        assert!(!p.matches("read_files"));
+        assert!(!p.matches("xread_file"));
+    }
