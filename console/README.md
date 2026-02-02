@@ -37,3 +37,5 @@ node dist/cli.js policy <policy-file>
 
 | Module      | Responsibility                                   |
 |-------------|--------------------------------------------------|
+| `audit.ts`  | Audit JSONL schema + defensive parser.           |
+| `report.ts` | Pure aggregation and filtering.                  |
