@@ -150,3 +150,22 @@ export function main(argv: string[]): number {
     return argv.length === 0 ? 2 : 0;
   }
   const command = argv[0]!;
+  const flags = parseFlags(argv.slice(1));
+  switch (command) {
+    case "report":
+      return cmdReport(flags);
+    case "tail":
+      return cmdTail(flags);
+    case "policy":
+      return cmdPolicy(flags);
+    default:
+      process.stderr.write(`error: unknown command '${command}'\n\n${USAGE}`);
+      return 2;
+  }
+}
+
+// Only run when invoked directly (not when imported by tests).
+const invokedPath = process.argv[1] ?? "";
+if (invokedPath.endsWith("cli.js") || invokedPath.endsWith("cli.ts")) {
+  process.exit(main(process.argv.slice(2)));
+}
