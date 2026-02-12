@@ -34,3 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Samples** — three policies (`default`, `permissive`, `strict`), a demo
   session, and the exact forwarded/audit output the gateway produces for it.
 - **Docs** — `README.md` with Mermaid diagrams and a runnable demo,
+  `docs/POLICY.md`, `docs/PROTOCOL.md`.
+- **Tooling** — `Makefile`, GitHub Actions CI building/testing both languages,
+  `LICENSE` (MIT), `.gitignore`.
+
+[0.1.0]: https://github.com/example/mcp-bastion/releases/tag/v0.1.0
