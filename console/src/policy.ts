@@ -201,3 +201,20 @@ export function globMatch(pattern: string, text: string): boolean {
 
   let pos = 0;
   for (let idx = 0; idx < parts.length; idx++) {
+    const part = parts[idx]!;
+    const isFirst = idx === 0;
+    const isLast = idx === parts.length - 1;
+    if (isFirst && anchoredStart) {
+      if (!text.startsWith(part, pos)) return false;
+      pos += part.length;
+    } else {
+      const rel = text.indexOf(part, pos);
+      if (rel < 0) return false;
+      pos = rel + part.length;
+    }
+    if (isLast && anchoredEnd) {
+      return pos === text.length;
+    }
+  }
+  return true;
+}
