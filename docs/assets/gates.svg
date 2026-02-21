@@ -121,3 +121,16 @@
   </g>
 
   <!-- animated request packets -->
+  <!-- allowed packet -->
+  <g filter="url(#glow)">
+    <circle r="6" fill="#12ffd6">
+      <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;0.5;0.5;1" keyTimes="0;0.45;0.5;1" calcMode="linear"
+        path="M146 200 L190 200 C 260 200 380 108 430 104 C 540 104 690 104 720 190 L 814 198"/>
+    </circle>
+  </g>
+  <!-- redacted packet: turns amber mid-flight -->
+  <g filter="url(#glow)">
+    <circle r="6">
+      <animate attributeName="fill" values="#12ffd6;#12ffd6;#ffb020;#ffb020" dur="4.6s" repeatCount="indefinite" keyTimes="0;0.48;0.52;1"/>
+      <animateMotion dur="4.6s" begin="0.8s" repeatCount="indefinite"
+        path="M146 200 L190 200 C 300 200 405 214 430 214 C 560 214 720 202 814 202"/>
