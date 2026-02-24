@@ -354,3 +354,36 @@ mod tests {
         assert!(!p.matches("read_files"));
         assert!(!p.matches("xread_file"));
     }
+
+    #[test]
+    fn pattern_prefix() {
+        let p = Pattern::new("shell.*");
+        assert!(p.matches("shell.exec"));
+        assert!(p.matches("shell."));
+        assert!(!p.matches("shel"));
+    }
+
+    #[test]
+    fn pattern_contains() {
+        let p = Pattern::new("*password*");
+        assert!(p.matches("db_password"));
+        assert!(p.matches("password"));
+        assert!(p.matches("user_password_hash"));
+        assert!(!p.matches("passwrd"));
+    }
+
+    #[test]
+    fn pattern_suffix() {
+        let p = Pattern::new("*_token");
+        assert!(p.matches("auth_token"));
+        assert!(!p.matches("token_value"));
+    }
+
+    #[test]
+    fn parse_basic_policy() {
+        let text = "\
+# sample
+default = deny
+allow_tool = read_file
+allow_tool = list_dir
+deny_tool = shell.*
