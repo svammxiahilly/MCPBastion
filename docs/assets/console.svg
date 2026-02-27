@@ -92,3 +92,8 @@
     </g>
 
     <!-- blinking cursor -->
+    <rect x="12" y="278" width="8" height="13" fill="#12ffd6">
+      <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+    </rect>
+    <text x="26" y="289" fill="#5fd6ff" font-size="10">_</text>
+
