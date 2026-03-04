@@ -127,3 +127,11 @@ export function aggregate(report: ParseReport): Aggregate {
 export function sortedEntries(m: ReadonlyMap<string, number>): [string, number][] {
   return [...m.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 }
+
+/** Filter events by decision and/or tool substring. */
+export interface Filter {
+  readonly decision?: Decision;
+  readonly tool?: string;
+}
+
+export function filterEvents(events: readonly AuditEvent[], f: Filter): AuditEvent[] {
