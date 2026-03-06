@@ -467,3 +467,24 @@ mod tests {
         assert_eq!(r.max_depth, 3);
     }
 
+    #[test]
+    fn structure_unbalanced_detected() {
+        let s = br#"{"a":[1,2}"#;
+        let r = structure_report(s);
+        assert!(!r.balanced);
+    }
+
+    #[test]
+    fn missing_key_returns_none() {
+        let s = br#"{"a":1}"#;
+        assert!(top_level_string(s, "zzz").is_none());
+    }
+
+    #[test]
+    fn scalar_span_is_not_string() {
+        let s = br#"{"id":42}"#;
+        let span = top_level_span(s, "id").unwrap();
+        assert_eq!(span.kind, ValueKind::Scalar);
+        assert_eq!(&s[span.start..span.end], b"42");
+    }
+}
