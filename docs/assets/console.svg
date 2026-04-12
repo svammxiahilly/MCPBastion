@@ -97,3 +97,9 @@
     </rect>
     <text x="26" y="289" fill="#5fd6ff" font-size="10">_</text>
 
+    <!-- scanline shimmer -->
+    <rect x="1" y="26" width="542" height="2" fill="#12ffd6" opacity="0.12">
+      <animate attributeName="y" values="28;296;28" dur="6s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>
