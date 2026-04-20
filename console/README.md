@@ -39,3 +39,6 @@ node dist/cli.js policy <policy-file>
 |-------------|--------------------------------------------------|
 | `audit.ts`  | Audit JSONL schema + defensive parser.           |
 | `report.ts` | Pure aggregation and filtering.                  |
+| `policy.ts` | Read-only policy parser, linter and glob matcher.|
+| `render.ts` | Plain-text and JSON rendering.                   |
+| `cli.ts`    | Command-line entry point.                        |
