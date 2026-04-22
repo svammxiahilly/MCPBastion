@@ -387,3 +387,35 @@ default = deny
 allow_tool = read_file
 allow_tool = list_dir
 deny_tool = shell.*
+redact_arg = *token*
+max_bytes = 1024
+rate_limit = 5
+rate_window_ms = 2000
+redaction_mask = \"[hidden]\"
+";
+        let p = Policy::parse(text).unwrap();
+        assert!(!p.default_allow);
+        assert_eq!(p.allow_tools.len(), 2);
+        assert_eq!(p.deny_tools.len(), 1);
+        assert_eq!(p.max_bytes, 1024);
+        assert_eq!(p.rate_limit, 5);
+        assert_eq!(p.rate_window_ms, 2000);
+        assert_eq!(p.redaction_mask, "[hidden]");
+    }
+
+    #[test]
+    fn deny_beats_allow() {
+        let p = Policy::parse("allow_tool = shell.exec\ndeny_tool = shell.*\n").unwrap();
+        let d = p.decide_tool("shell.exec");
+        assert!(!d.is_allow());
+    }
+
+    #[test]
+    fn default_deny_unknown_tool() {
+        let p = Policy::parse("default = deny\nallow_tool = read_file\n").unwrap();
+        assert!(!p.decide_tool("delete_all").is_allow());
+        assert!(p.decide_tool("read_file").is_allow());
+    }
+
+    #[test]
+    fn unknown_directive_errors() {
