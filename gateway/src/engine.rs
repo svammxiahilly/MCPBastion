@@ -309,3 +309,35 @@ redaction_mask = \"***\"
         let out = run("not json at all", &p, &mut rl, 1, 0);
         assert_eq!(out.event.decision, Decision::Drop);
         assert!(out.event.reason.contains("not a JSON object"));
+    }
+
+    #[test]
+    fn non_toolcall_follows_default() {
+        let p = engine_policy(); // default deny
+        let mut rl = RateLimiter::new(0, 1000);
+        let out = run(r#"{"method":"tools/list","id":1}"#, &p, &mut rl, 1, 0);
+        assert_eq!(out.event.decision, Decision::Deny);
+    }
+
+    #[test]
+    fn toolcall_without_name_denied() {
+        let p = engine_policy();
+        let mut rl = RateLimiter::new(0, 1000);
+        let out = run(
+            r#"{"method":"tools/call","params":{"arguments":{}}}"#,
+            &p,
+            &mut rl,
+            1,
+            0,
+        );
+        assert_eq!(out.event.decision, Decision::Deny);
+        assert!(out.event.reason.contains("missing extractable"));
+    }
+
+    #[test]
+    fn id_extraction_string_and_number() {
+        assert_eq!(id_text(br#"{"id":42}"#).as_deref(), Some("42"));
+        assert_eq!(id_text(br#"{"id":"abc"}"#).as_deref(), Some("abc"));
+        assert_eq!(id_text(br#"{"x":1}"#), None);
+    }
+}
