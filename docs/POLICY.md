@@ -83,3 +83,8 @@ redaction_mask = "«redacted»"
 - `shell.exec` → denied (matches `shell.*`).
 - `write_file` → denied (default, not on allow list).
 - `read_file` with an `auth_token` argument → forwarded with the token value
+  replaced by `«redacted»`.
+- 21st forwarded message within 1 s → dropped by the rate limiter.
+
+## Linting
+
