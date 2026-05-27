@@ -137,3 +137,15 @@ test("parsePolicy rejects non-integer limit", () => {
 test("globMatch mirrors the Rust matcher", () => {
   assert.equal(globMatch("read_file", "read_file"), true);
   assert.equal(globMatch("shell.*", "shell.exec"), true);
+  assert.equal(globMatch("*password*", "db_password"), true);
+  assert.equal(globMatch("*_token", "auth_token"), true);
+  assert.equal(globMatch("*_token", "token_x"), false);
+  assert.equal(globMatch("read_file", "read_files"), false);
+});
+
+test("renderPolicy lists tools and lint results", () => {
+  const { policy, issues } = parsePolicy("default = deny\nallow_tool = read_file\n");
+  const out = renderPolicy(policy, issues);
+  assert.ok(out.includes("Default decision : DENY"));
+  assert.ok(out.includes("+ read_file"));
+});
