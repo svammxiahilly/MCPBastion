@@ -23,3 +23,5 @@ lto = true
 strip = true
 
 # NOTE: This crate depends ONLY on the Rust standard library.
+# There are intentionally no third-party dependencies.
+[dependencies]
