@@ -134,3 +134,15 @@
       <animate attributeName="fill" values="#12ffd6;#12ffd6;#ffb020;#ffb020" dur="4.6s" repeatCount="indefinite" keyTimes="0;0.48;0.52;1"/>
       <animateMotion dur="4.6s" begin="0.8s" repeatCount="indefinite"
         path="M146 200 L190 200 C 300 200 405 214 430 214 C 560 214 720 202 814 202"/>
+    </circle>
+  </g>
+  <!-- denied packet: fades to red and stops at the deny gate -->
+  <g filter="url(#glow)">
+    <circle r="6">
+      <animate attributeName="fill" values="#12ffd6;#ff2b4e;#ff2b4e" dur="3s" repeatCount="indefinite" keyTimes="0;0.7;1"/>
+      <animate attributeName="opacity" values="1;1;0" dur="3s" repeatCount="indefinite" keyTimes="0;0.72;1"/>
+      <animateMotion dur="3s" begin="1.6s" repeatCount="indefinite"
+        path="M146 200 L190 200 C 300 200 400 300 430 324"/>
+    </circle>
+  </g>
+
