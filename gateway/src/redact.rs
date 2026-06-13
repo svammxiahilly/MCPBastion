@@ -275,3 +275,31 @@ mod tests {
         assert!(out.contains(r#""note":"ok""#));
     }
 
+    #[test]
+    fn no_arguments_object_is_untouched() {
+        let msg = br#"{"method":"tools/list","id":1}"#;
+        let p = policy_with(&["token"]);
+        let r = redact_message(msg, &p);
+        assert_eq!(r.bytes, msg.to_vec());
+        assert!(r.redacted_keys.is_empty());
+    }
+
+    #[test]
+    fn multiple_redactions_preserve_structure() {
+        let msg = br#"{"method":"tools/call","params":{"name":"x","arguments":{"a":"1","secret":"2","b":"3","token":"4"}}}"#;
+        let p = policy_with(&["secret", "token"]);
+        let r = redact_message(msg, &p);
+        let out = String::from_utf8(r.bytes).unwrap();
+        assert!(out.contains(r#""a":"1""#));
+        assert!(out.contains(r#""secret":"***""#));
+        assert!(out.contains(r#""b":"3""#));
+        assert!(out.contains(r#""token":"***""#));
+        assert_eq!(r.redacted_keys.len(), 2);
+    }
+
+    #[test]
+    fn json_encode_escapes() {
+        assert_eq!(json_encode_string("a\"b"), r#""a\"b""#);
+        assert_eq!(json_encode_string("l\n"), r#""l\n""#);
+    }
+}
