@@ -135,3 +135,11 @@ export interface Filter {
 }
 
 export function filterEvents(events: readonly AuditEvent[], f: Filter): AuditEvent[] {
+  return events.filter((ev) => {
+    if (f.decision !== undefined && ev.decision !== f.decision) return false;
+    if (f.tool !== undefined && (ev.tool === null || !ev.tool.includes(f.tool))) {
+      return false;
+    }
+    return true;
+  });
+}
