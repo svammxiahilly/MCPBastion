@@ -88,3 +88,8 @@ redaction_mask = "«redacted»"
 
 ## Linting
 
+`node console/dist/cli.js policy <file>` prints a summary and flags:
+
+- unknown directives and non-integer numeric values (errors);
+- `allow_tool` rules shadowed by a `deny_tool` (warning);
+- a redundant allow-list when `default = allow` (warning).
