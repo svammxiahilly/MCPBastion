@@ -17,3 +17,4 @@ yarn-error.log*
 Thumbs.db
 
 # Local scratch
+/sessions/err.txt
