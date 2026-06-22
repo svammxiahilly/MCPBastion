@@ -419,3 +419,36 @@ redaction_mask = \"[hidden]\"
 
     #[test]
     fn unknown_directive_errors() {
+        let err = Policy::parse("wat = 1\n").unwrap_err();
+        matches!(err, PolicyError::UnknownDirective { .. });
+    }
+
+    #[test]
+    fn bad_number_errors() {
+        let err = Policy::parse("max_bytes = notanumber\n").unwrap_err();
+        matches!(err, PolicyError::BadValue { .. });
+    }
+
+    #[test]
+    fn rate_limiter_windowing() {
+        let mut rl = RateLimiter::new(2, 1000);
+        assert!(rl.check(0));
+        assert!(rl.check(100));
+        assert!(!rl.check(200)); // third within window rejected
+        assert!(rl.check(1200)); // first has aged out
+    }
+
+    #[test]
+    fn rate_limiter_unlimited() {
+        let mut rl = RateLimiter::new(0, 1000);
+        for t in 0..100 {
+            assert!(rl.check(t));
+        }
+    }
+
+    #[test]
+    fn comment_stripping_respects_quotes() {
+        let p = Policy::parse("redaction_mask = \"a#b\" # trailing\n").unwrap();
+        assert_eq!(p.redaction_mask, "a#b");
+    }
+}
