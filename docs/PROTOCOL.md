@@ -120,3 +120,13 @@ With `--stats`, a final object is appended to the audit sink:
 ```
 
 The console cross-checks this against its own recount and exits non-zero from
+`report` if they disagree — a cheap integrity check across the two languages.
+
+## Exit codes
+
+| Code | Meaning                        |
+|------|--------------------------------|
+| 0    | Clean EOF.                     |
+| 1    | I/O error during the session.  |
+| 2    | Usage error (bad arguments).   |
+| 3    | Policy could not be loaded.    |
