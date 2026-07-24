@@ -18,3 +18,4 @@ Thumbs.db
 
 # Local scratch
 /sessions/err.txt
+*.tmp
