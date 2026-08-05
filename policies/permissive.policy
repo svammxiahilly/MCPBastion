@@ -16,3 +16,6 @@ redact_arg = password
 redact_arg = *secret*
 
 max_bytes      = 262144   # 256 KiB
+rate_limit     = 0        # unlimited
+rate_window_ms = 1000
+redaction_mask = "***"
