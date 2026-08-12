@@ -263,3 +263,28 @@ redaction_mask = \"***\"
             r#"{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"shell.exec","arguments":{"cmd":"whoami"}}}"#,
             "\n",
         );
+        let (out, audit) = session(input);
+        // Only the allowed message is forwarded, with redaction applied.
+        let fwd_lines: Vec<&str> = out.lines().collect();
+        assert_eq!(fwd_lines.len(), 1);
+        assert!(fwd_lines[0].contains(r#""auth_token":"***""#));
+        // Audit has two events plus a summary line.
+        let audit_lines: Vec<&str> = audit.lines().collect();
+        assert_eq!(audit_lines.len(), 3);
+        assert!(audit_lines[0].contains(r#""decision":"forward""#));
+        assert!(audit_lines[1].contains(r#""decision":"deny""#));
+        assert!(audit_lines[2].contains(r#""summary":true"#));
+        assert!(audit_lines[2].contains(r#""forward":1"#));
+        assert!(audit_lines[2].contains(r#""deny":1"#));
+    }
+
+    #[test]
+    fn blank_lines_are_skipped() {
+        let input = "\n\n   \n";
+        let (out, audit) = session(input);
+        assert!(out.is_empty());
+        // Only the summary line is present.
+        assert_eq!(audit.lines().count(), 1);
+        assert!(audit.contains(r#""total":0"#));
+    }
+}
