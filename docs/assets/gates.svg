@@ -146,3 +146,16 @@
     </circle>
   </g>
 
+  <!-- deny spark -->
+  <g transform="translate(490,304)">
+    <text font-size="18" fill="#ff2b4e" text-anchor="middle" opacity="0">✕
+      <animate attributeName="opacity" values="0;1;0" dur="3s" begin="2.5s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <!-- audit tap -->
+  <path d="M505 130 L505 372 L900 372" stroke="#5fd6ff" stroke-width="1" fill="none" stroke-dasharray="4 4" opacity="0.5">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/>
+  </path>
+  <text x="700" y="388" fill="#5fd6ff" font-size="9" letter-spacing="1">one JSON audit event per message ▸ stderr | --audit file</text>
+</svg>
