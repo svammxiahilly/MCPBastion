@@ -175,3 +175,13 @@ export function parseAuditLog(body: string): ParseReport {
       case "event":
         events.push(parsed.event);
         break;
+      case "summary":
+        summary = parsed.summary;
+        break;
+      case "error":
+        errors.push({ line: parsed.line, message: parsed.message });
+        break;
+    }
+  }
+  return { events, summary, errors };
+}
