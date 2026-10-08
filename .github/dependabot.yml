@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: cargo
+    directory: "/gateway"
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: "/console"
+    schedule:
+      interval: weekly
