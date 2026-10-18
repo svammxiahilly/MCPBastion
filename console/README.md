@@ -42,3 +42,9 @@ node dist/cli.js policy <policy-file>
 | `policy.ts` | Read-only policy parser, linter and glob matcher.|
 | `render.ts` | Plain-text and JSON rendering.                   |
 | `cli.ts`    | Command-line entry point.                        |
+
+## Redact decisions
+
+The console renders a redact decision like a deny with a diff: the incoming line, the outgoing line
+and the audit record side by side, because the reviewer's question is *what changed*, not whether the
+message passed.

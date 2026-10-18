@@ -325,3 +325,15 @@ mcp-bastion/
 ## License
 
 [MIT](LICENSE).
+
+## Worked redact example
+
+A tool call whose arguments carry a token is rewritten before it reaches the server:
+
+```text
+in   {"jsonrpc":"2.0","id":7,"method":"shell.exec","params":{"cmd":"echo $API_KEY"}}
+out  {"jsonrpc":"2.0","id":7,"method":"shell.exec","params":{"cmd":"echo <redacted>"}}
+audit {"decision":"redact","rule":"secrets.*","id":7}
+```
+
+The message still executes the intent; only the secret leaves the record.
