@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Docs
 
+- One-line pointer from the console guide to the gateway reference.
+
+## [Unreleased]
+
+### Docs
+
 - Worked redact example in the README and in the console guide.
 
 ## [0.1.0] - 2026-08-31

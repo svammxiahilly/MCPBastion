@@ -337,3 +337,5 @@ audit {"decision":"redact","rule":"secrets.*","id":7}
 ```
 
 The message still executes the intent; only the secret leaves the record.
+
+> Everything else - policy grammar, decision kinds, audit format - lives in the gateway's README.
