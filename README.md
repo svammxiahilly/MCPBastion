@@ -325,3 +325,5 @@ mcp-bastion/
 ## License
 
 [MIT](LICENSE).
+
+The redact example above is the fastest way to see the three decision kinds in one message.
